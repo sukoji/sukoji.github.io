@@ -13,6 +13,8 @@ subtitle: Researcher · Builder · Human-centered AI
 
 **{{ site.author.name }}** ({{ site.author.name_ko }})입니다. POSTECH Institute for Artificial Intelligence (PIAI)에서 연구 인턴으로 일하고 있으며, 멀티에이전트 시스템과 인간중심 AI를 중심으로 연구·개발합니다.
 
+GitHub: [@{{ site.author.handle }}]({{ site.author.github }}) · [프로필 README]({{ site.author.github_profile_readme }}) · [전체 저장소]({{ site.author.github_repos }})
+
 개발자이자 연구자로서, 에이전트 기술이 실제로 어디까지 왔는지 가까이에서 따라가는 편입니다. 멀티에이전트 구성, evaluation harness, tool use, 그리고 그 주변의 plumbing에 관심이 많습니다.
 
 논문을 꾸준히 읽고, 무엇이 진짜 변화인지 무엇이 리브랜딩인지 구분하려 노력합니다. 검증이 필요하면 작은 코드를 짜서 직접 확인합니다.
@@ -44,7 +46,9 @@ subtitle: Researcher · Builder · Human-centered AI
 </div>
 
 <aside class="about-sidebar">
-  <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}">
+  <a href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me" class="sidebar-avatar-link">
+    <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}">
+  </a>
   <dl>
     <dt>Name</dt>
     <dd>{{ site.author.name }}</dd>
@@ -53,9 +57,14 @@ subtitle: Researcher · Builder · Human-centered AI
     <dt>Email</dt>
     <dd><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></dd>
     <dt>GitHub</dt>
-    <dd><a href="{{ site.author.github }}" target="_blank" rel="noopener">@{{ site.author.handle }}</a></dd>
+    <dd>
+      <a href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">@{{ site.author.handle }}</a><br>
+      <a href="{{ site.author.github_repos }}" target="_blank" rel="noopener noreferrer">Repositories</a> ·
+      <a href="{{ site.author.github_profile_readme }}" target="_blank" rel="noopener noreferrer">README</a>
+    </dd>
     <dt>Focus</dt>
     <dd>{{ site.author.tagline }}</dd>
   </dl>
+  {% include social-links.html source=true %}
 </aside>
 </div>

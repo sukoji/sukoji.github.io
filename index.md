@@ -6,10 +6,18 @@ permalink: /
 
 <section class="hero">
   <div class="hero-avatar">
-    <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}" width="148" height="148">
+    <a href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me" title="GitHub @{{ site.author.handle }}">
+      <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}" width="148" height="148">
+    </a>
   </div>
   <div class="hero-content">
-    <h1>{{ site.author.name }}<span class="name-ko">{{ site.author.name_ko }}</span></h1>
+    <h1>
+      {{ site.author.name }}<span class="name-ko">{{ site.author.name_ko }}</span>
+    </h1>
+    <p class="hero-handle">
+      <a href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">@{{ site.author.handle }}</a>
+      · <a href="{{ site.author.github_profile_readme }}" target="_blank" rel="noopener noreferrer">GitHub profile</a>
+    </p>
     <p class="hero-tagline">{{ site.author.tagline }}</p>
     <p class="hero-bio">
       에이전트가 어디로 가는지 가까이에서 지켜보는 걸 좋아하는 연구자이자 개발자입니다.
@@ -26,8 +34,9 @@ permalink: /
       <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">이력 보기</a>
       <a class="btn btn-ghost" href="{{ '/publications/' | relative_url }}">논문</a>
       <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">블로그</a>
-      <a class="btn btn-ghost" href="{{ site.author.github }}" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-ghost btn-github" href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">GitHub ↗</a>
     </div>
+    {% include social-links.html %}
   </div>
 </section>
 

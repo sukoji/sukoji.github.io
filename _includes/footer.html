@@ -1,11 +1,19 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-left">
-      <p class="footer-name">{{ site.author.name }} <span class="footer-handle">@{{ site.author.handle }}</span></p>
-      <p class="footer-meta">{{ site.author.location }} · {{ site.author.email }}</p>
+      <p class="footer-name">
+        {{ site.author.name }}
+        <a class="footer-handle" href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">@{{ site.author.handle }}</a>
+      </p>
+      <p class="footer-meta">
+        {{ site.author.location }} ·
+        <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+      </p>
     </div>
     <div class="footer-right">
-      <a href="{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">GitHub</a>
+      <a href="{{ site.author.github_repos }}" target="_blank" rel="noopener noreferrer">Repos</a>
+      <a href="{{ site.author.github_site_source }}" target="_blank" rel="noopener noreferrer">Source</a>
       <a href="mailto:{{ site.author.email }}">Email</a>
       <span class="footer-copy">&copy; {{ 'now' | date: '%Y' }}</span>
     </div>

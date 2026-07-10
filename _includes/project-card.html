@@ -3,12 +3,12 @@
     <span class="project-emoji">{{ include.project.emoji }}</span>
     <div class="project-meta-row">
       {% if include.project.stars %}
-      <span class="project-stars">★ {{ include.project.stars }}</span>
+      <a class="project-stars" href="{{ include.project.url }}" target="_blank" rel="noopener noreferrer" title="GitHub stars">★ {{ include.project.stars }}</a>
       {% endif %}
     </div>
   </div>
   <h3 class="project-name">
-    <a href="{{ include.project.url }}" target="_blank" rel="noopener">{{ include.project.name }}</a>
+    <a href="{{ include.project.url }}" target="_blank" rel="noopener noreferrer">{{ include.project.name }}</a>
   </h3>
   <p class="project-desc">{{ include.project.desc }}</p>
   {% if include.project.tags %}
@@ -18,4 +18,7 @@
     {% endfor %}
   </ul>
   {% endif %}
+  <a class="project-repo-link" href="{{ include.project.url }}" target="_blank" rel="noopener noreferrer">
+    github.com/{{ site.author.handle }}/{{ include.project.name }} ↗
+  </a>
 </article>

@@ -12,6 +12,9 @@ author:
   location: Pohang, South Korea
   tagline: Multi-agent systems & human-centered AI
   github: "https://github.com/sukoji"
+  github_repos: "https://github.com/sukoji?tab=repositories"
+  github_profile_readme: "https://github.com/sukoji/sukoji"
+  github_site_source: "https://github.com/sukoji/sukoji.github.io"
 
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title/
