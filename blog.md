@@ -1,9 +1,7 @@
 ---
 layout: page
 title: 블로그
-label: Blog
 permalink: /blog/
-subtitle: Research notes, TIL, and thoughts
 ---
 
 {% if site.posts.size == 0 %}

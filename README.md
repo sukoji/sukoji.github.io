@@ -53,17 +53,19 @@ conferences:
 
 ### 블로그 글 추가
 
-`_posts/2025-07-15-제목.md`:
+가이드: [`docs/BLOG_WRITING.md`](docs/BLOG_WRITING.md) · 템플릿: [`_posts/_TEMPLATE.md`](_posts/_TEMPLATE.md) · 에이전트: [`AGENTS.md`](AGENTS.md)
+
+`_posts/2026-07-15-제목.md`:
 
 ```yaml
 ---
 layout: post
 title: 글 제목
-date: 2025-07-15
+date: 2026-07-15
 tags: [태그]
+summary: 한 줄 요약
 ---
 ```
-
 `main` 브랜치에 push하면 GitHub Pages가 자동 배포됩니다.
 
 ## 로컬 미리보기

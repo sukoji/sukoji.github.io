@@ -9,7 +9,7 @@
   <div class="reading-progress" aria-hidden="true"><span class="reading-progress-bar"></span></div>
   {% endif %}
   {% include header.html %}
-  <main id="main-content" class="{% unless page.url == '/' %}container page-main{% endunless %}">
+  <main id="main-content" class="{% if page.layout == 'post' %}post-main{% elsif page.url != '/' %}container page-main{% endif %}">
     {{ content }}
   </main>
   {% include footer.html %}

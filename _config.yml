@@ -18,6 +18,13 @@ author:
   github_site_source: "https://github.com/sukoji/sukoji.github.io"
 
 markdown: kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+
 permalink: /blog/:year/:month/:day/:title/
 
 defaults:
@@ -33,3 +40,5 @@ exclude:
   - README.md
   - LICENSE
   - .editorconfig
+  - docs/
+  - _posts/_TEMPLATE.md

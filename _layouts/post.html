@@ -1,22 +1,30 @@
 ---
 layout: default
 ---
-<article class="post">
-  <header class="post-header reveal">
-    <p class="section-label">Blog · {{ page.date | date: '%Y.%m.%d' }}</p>
-    <h1>{{ page.title }}</h1>
-    {% if page.tags and page.tags.size > 0 %}
-    <ul class="tag-list">
-      {% for tag in page.tags %}
-      <li>{{ tag }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-  </header>
-  <div class="post-content prose reveal">
-    {{ content }}
-  </div>
-  <footer class="post-footer reveal">
-    <a class="back-link" href="{{ '/blog/' | relative_url }}">← 모든 글</a>
-  </footer>
-</article>
+<div class="post-shell">
+  <article class="post-card">
+    <header class="post-header">
+      <p class="post-meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y.%m.%d' }}</time>
+        {% if page.tags and page.tags.size > 0 %}
+        <span class="post-meta-sep">·</span>
+        <span class="post-meta-tags">
+          {% for tag in page.tags %}{{ tag }}{% unless forloop.last %}, {% endunless %}{% endfor %}
+        </span>
+        {% endif %}
+      </p>
+      <h1>{{ page.title }}</h1>
+      {% if page.summary %}
+      <p class="post-summary">{{ page.summary }}</p>
+      {% endif %}
+    </header>
+
+    <div class="post-content prose">
+      {{ content }}
+    </div>
+
+    <footer class="post-footer">
+      <a class="back-link" href="{{ '/blog/' | relative_url }}">← 글 목록</a>
+    </footer>
+  </article>
+</div>
