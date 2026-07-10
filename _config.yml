@@ -1,0 +1,23 @@
+title: sukoji
+description: 이력, 논문, 블로그
+url: "https://sukoji.github.io"
+baseurl: ""
+
+author:
+  name: sukoji
+  email: ""
+
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
