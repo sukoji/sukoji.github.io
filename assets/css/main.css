@@ -725,7 +725,14 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ── Page / Post headers ── */
-.page-header,
+.page-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--border);
+  max-width: var(--content);
+  margin-inline: auto;
+}
+
 .post-header {
   margin-bottom: 2.5rem;
   padding-bottom: 1.75rem;
@@ -750,7 +757,10 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 1.05rem;
 }
 
-.page-content { max-width: var(--content); }
+.page-content {
+  max-width: var(--content);
+  margin-inline: auto;
+}
 
 /* ── Prose (reading-optimized, Even-like) ── */
 .prose {
@@ -1285,6 +1295,7 @@ body.is-post {
 /* ── About page ── */
 .page-about .page-header {
   max-width: 40rem;
+  margin-inline: auto;
   margin-bottom: 2rem;
   padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border);
@@ -1309,6 +1320,8 @@ body.is-post {
   grid-template-columns: minmax(0, 1fr) 220px;
   gap: 3.5rem;
   align-items: start;
+  max-width: 52rem;
+  margin-inline: auto;
 }
 
 .page-about .page-content {
