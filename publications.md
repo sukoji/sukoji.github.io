@@ -21,7 +21,7 @@ subtitle: Conference papers & preprints
   {% if pub.links.size > 0 %}
   <div class="pub-links">
     {% for link in pub.links %}
-    <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>
+    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}{% if link.url contains 'github.com' %} ↗{% endif %}</a>
     {% endfor %}
   </div>
   {% endif %}

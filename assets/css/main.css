@@ -138,6 +138,26 @@ img { max-width: 100%; height: auto; }
 
 .brand-handle:hover { color: var(--accent); }
 
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.brand-text {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
 .brand:hover .brand-handle { text-decoration: none; }
 
 .nav-github {

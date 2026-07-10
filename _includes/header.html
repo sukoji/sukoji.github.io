@@ -1,12 +1,12 @@
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="{{ '/' | relative_url }}">
-      <span class="brand-mark">SJ</span>
-      <span class="brand-text-wrap">
+    <div class="brand">
+      <a class="brand-home" href="{{ '/' | relative_url }}">
+        <span class="brand-mark">SJ</span>
         <span class="brand-text">{{ site.author.name }}</span>
-        <a class="brand-handle" href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">@{{ site.author.handle }}</a>
-      </span>
-    </a>
+      </a>
+      <a class="brand-handle" href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">@{{ site.author.handle }}</a>
+    </div>
     <button class="nav-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
       <span></span><span></span>
     </button>
