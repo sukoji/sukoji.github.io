@@ -4,7 +4,10 @@ title: "구체적인 제목 — 메모/정리 금지"
 date: 2026-07-10
 tags: [태그1, 태그2]
 summary: 목록에 보이는 한 줄. 핵심만, 80자 내외.
+image: /assets/images/posts/YYYY-MM-DD-slug.svg  # 선택: 미리보기 카드+히어로. 16:9 SVG 권장. 없으면 그라디언트
 ---
+
+![대표 이미지 설명](/assets/images/posts/YYYY-MM-DD-slug.svg)
 
 첫 문단: 무슨 일이 있었는지 2~3문장. 링크는 본문에.
 
