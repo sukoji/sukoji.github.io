@@ -12,6 +12,9 @@ author:
   avatar: "/assets/images/profile.jpg"
   location: Pohang, South Korea
   tagline: Multi-agent systems & human-centered AI
+  bio_short: >
+    PIAI 인턴. 멀티에이전트·eval 보고, sympo·token-stack repo 돌리는 중.
+    Persode(ICES 2025)는 HCAC 때 했다.
   github: "https://github.com/sukoji"
   github_repos: "https://github.com/sukoji?tab=repositories"
   github_profile_readme: "https://github.com/sukoji/sukoji"

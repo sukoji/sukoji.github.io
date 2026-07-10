@@ -1,0 +1,36 @@
+<aside class="site-sidebar" aria-label="프로필 및 메뉴">
+  <a class="sidebar-brand" href="{{ '/' | relative_url }}">
+    <img
+      class="sidebar-avatar"
+      src="{{ site.author.avatar | relative_url }}"
+      alt="{{ site.author.name }}"
+      width="112"
+      height="112"
+    >
+    <span class="sidebar-name">{{ site.author.name }}</span>
+    <span class="sidebar-name-ko">{{ site.author.name_ko }}</span>
+  </a>
+
+  <p class="sidebar-tagline">{{ site.author.tagline }}</p>
+  <p class="sidebar-bio">{{ site.author.bio_short | strip }}</p>
+
+  <ul class="sidebar-meta">
+    <li>PIAI · Research Intern</li>
+    <li>HCAC · Researcher</li>
+    <li>상명대 · 인간중심 AI 공학</li>
+  </ul>
+
+  <nav class="sidebar-nav" aria-label="사이트 메뉴">
+    <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>홈</a>
+    <a href="{{ '/cv/' | relative_url }}" {% if page.url == '/cv/' %}aria-current="page"{% endif %}>이력</a>
+    <a href="{{ '/publications/' | relative_url }}" {% if page.url == '/publications/' %}aria-current="page"{% endif %}>논문</a>
+    <a href="{{ '/blog/' | relative_url }}" {% if page.url == '/blog/' or page.layout == 'post' %}aria-current="page"{% endif %}>블로그</a>
+    <a href="{{ '/about/' | relative_url }}" {% if page.url == '/about/' %}aria-current="page"{% endif %}>소개</a>
+    <a class="sidebar-nav-github" href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">GitHub</a>
+  </nav>
+
+  <div class="sidebar-contact">
+    <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+    <span class="sidebar-location">{{ site.author.location }}</span>
+  </div>
+</aside>

@@ -23,10 +23,7 @@ permalink: /
       <span class="hero-title-ko">{{ site.author.name_ko }}</span>
     </h1>
     <p class="hero-tagline">{{ site.author.tagline }}</p>
-    <p class="hero-bio">
-      PIAI 인턴. 멀티에이전트·eval 보고, sympo·token-stack repo 돌리는 중.
-      Persode(ICES 2025)는 HCAC 때 했다.
-    </p>
+    <p class="hero-bio">{{ site.author.bio_short | strip }}</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">이력</a>
       <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">글</a>

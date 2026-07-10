@@ -95,6 +95,187 @@ img { max-width: 100%; height: auto; display: block; }
 
 .page-main { padding-block: 2.5rem 5rem; }
 
+/* ── Sidebar layout (blog, pages, posts) ── */
+.site-shell {
+  display: grid;
+  grid-template-columns: 15.5rem minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+  padding-block: 2.5rem 5rem;
+}
+
+.site-main {
+  min-width: 0;
+}
+
+.site-sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.sidebar-brand {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebar-brand:hover {
+  text-decoration: none;
+}
+
+.sidebar-avatar {
+  display: block;
+  width: 7rem;
+  height: 7rem;
+  margin: 0 auto 0.85rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  transition: border-color 0.25s;
+}
+
+.sidebar-brand:hover .sidebar-avatar {
+  border-color: var(--theme);
+}
+
+.sidebar-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.sidebar-name-ko {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.sidebar-tagline {
+  margin: 0.85rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+.sidebar-bio {
+  margin: 0.75rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.sidebar-meta {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0.75rem 0 0;
+  border-top: 1px solid var(--border);
+}
+
+.sidebar-meta li {
+  padding: 0.3rem 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 0.42rem 0.65rem;
+  border-radius: 6px;
+  border-left: 2px solid transparent;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.sidebar-nav a:hover {
+  color: var(--ink);
+  background: var(--bg-muted);
+  text-decoration: none;
+}
+
+.sidebar-nav a[aria-current="page"] {
+  color: var(--theme);
+  background: var(--theme-muted);
+  border-left-color: var(--theme);
+}
+
+.sidebar-nav-github {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem !important;
+}
+
+.sidebar-contact {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.sidebar-contact a {
+  display: block;
+  color: var(--ink-muted);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.sidebar-contact a:hover {
+  color: var(--theme);
+}
+
+.sidebar-location {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--ink-muted);
+}
+
+.has-sidebar .site-main .page-header,
+.has-sidebar .site-main .page-content {
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.has-sidebar .site-main .post-shell {
+  width: 100%;
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.has-sidebar .site-main .page-about .page-header,
+.has-sidebar .site-main .page-about .page-content {
+  max-width: 44rem;
+}
+
+@media (min-width: 861px) {
+  .has-sidebar .site-header .site-nav {
+    display: none;
+  }
+}
+
 /* ── Reading progress ── */
 .reading-progress {
   position: fixed;
@@ -835,6 +1016,11 @@ body.is-post {
   padding: 2.5rem 1.25rem 5rem;
 }
 
+/* legacy: posts now use .site-shell */
+body.is-post.has-sidebar .site-shell.is-post-shell {
+  padding-block: 2.5rem 5rem;
+}
+
 .post-shell {
   width: min(44rem, 100%);
   margin-inline: auto;
@@ -1315,15 +1501,6 @@ body.is-post {
   line-height: 1.5;
 }
 
-.about-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px;
-  gap: 3.5rem;
-  align-items: start;
-  max-width: 52rem;
-  margin-inline: auto;
-}
-
 .page-about .page-content {
   max-width: none;
 }
@@ -1356,66 +1533,6 @@ body.is-post {
 
 .about-main.prose h2:first-child {
   margin-top: 0;
-}
-
-.about-sidebar {
-  position: sticky;
-  top: calc(var(--header-h) + 1.5rem);
-  padding: 1.25rem;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  text-align: center;
-}
-
-.about-sidebar img {
-  display: block;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 1.25rem;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-}
-
-.about-contact {
-  margin: 0;
-  text-align: left;
-}
-
-.about-contact-row {
-  padding: 0.65rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.about-contact-row:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
-.about-contact dt {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--ink-muted);
-  margin: 0 0 0.2rem;
-}
-
-.about-contact dd {
-  margin: 0;
-  font-size: 0.88rem;
-  line-height: 1.45;
-  word-break: keep-all;
-  overflow-wrap: anywhere;
-}
-
-.about-contact a {
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.about-contact a:hover {
-  color: var(--theme);
-  text-decoration: underline;
 }
 
 /* ── Earlier list ── */
@@ -1577,26 +1694,49 @@ body.is-post {
 
 /* ── Responsive ── */
 @media (max-width: 860px) {
-  .about-layout {
+  .site-shell {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
+    padding-block: 1.5rem 3.5rem;
   }
 
-  .about-sidebar {
+  .site-sidebar {
     position: static;
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1.25rem;
-    text-align: left;
-    align-items: center;
+    padding: 1.15rem 1.25rem;
   }
 
-  .about-sidebar img {
-    margin: 0;
+  .sidebar-brand {
+    text-align: center;
   }
 
-  .about-contact {
-    align-self: center;
+  .sidebar-tagline {
+    text-align: center;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    justify-content: center;
+  }
+
+  .sidebar-nav a {
+    border-left: none;
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.65rem;
+    font-size: 0.8rem;
+  }
+
+  .sidebar-nav a[aria-current="page"] {
+    border-color: var(--theme);
+  }
+
+  .sidebar-nav-github {
+    margin-top: 0;
+  }
+
+  .sidebar-contact {
+    text-align: center;
   }
 
   .hero {
