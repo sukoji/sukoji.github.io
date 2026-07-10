@@ -1563,7 +1563,7 @@ body.is-post.has-sidebar .site-shell.is-post-shell {
 
 .dot-post { background: var(--theme); }
 .dot-project { background: var(--accent-warm); }
-.dot-tag { background: var(--ink-muted); }
+.dot-tag { background: var(--theme-soft); }
 
 .graph-fallback {
   position: absolute;
@@ -1588,6 +1588,24 @@ body.is-post.has-sidebar .site-shell.is-post-shell {
   position: static;
   padding: 0.9rem;
   font-size: 0.75rem;
+}
+
+.rail-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
+.rail-note strong { color: var(--ink-soft); font-weight: 600; }
+
+.rail-note .dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin: 0 0.15rem 0 0.45rem;
+  vertical-align: middle;
 }
 
 .graph-index {
@@ -1863,8 +1881,8 @@ body.is-post.has-sidebar .site-shell.is-post-shell {
 
 /* ── About page ── */
 .page-about .page-header {
-  max-width: 40rem;
-  margin-inline: auto;
+  max-width: 44rem;
+  margin-inline: 0;
   margin-bottom: 2rem;
   padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border);
