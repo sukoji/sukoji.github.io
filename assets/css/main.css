@@ -545,6 +545,10 @@ img { max-width: 100%; height: auto; display: block; }
   transition: transform 0.35s var(--ease-out);
 }
 
+.project-card:hover .project-preview img {
+  transform: scale(1.02);
+}
+
 .project-preview img[src$=".svg"] {
   object-fit: contain;
   padding: 0.75rem;
