@@ -2,7 +2,13 @@
   <div class="container header-inner">
     <div class="brand">
       <a class="brand-home" href="{{ '/' | relative_url }}">
-        <span class="brand-mark">SJ</span>
+        <img
+          class="brand-mark"
+          src="{{ site.author.avatar | relative_url }}"
+          alt="{{ site.author.name }}"
+          width="32"
+          height="32"
+        >
         <span class="brand-text">{{ site.author.name }}</span>
       </a>
       <a class="brand-handle" href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">@{{ site.author.handle }}</a>

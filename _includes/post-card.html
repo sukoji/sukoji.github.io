@@ -1,0 +1,32 @@
+<article class="blog-card">
+  <a class="blog-card-link" href="{{ include.post.url | relative_url }}">
+    <div class="blog-card-cover{% unless include.post.image %} is-fallback{% endunless %}">
+      {% if include.post.image %}
+      <img
+        src="{{ include.post.image | relative_url }}"
+        alt="{{ include.post.title }} 미리보기"
+        loading="lazy"
+        decoding="async"
+      >
+      {% else %}
+      <span class="blog-card-cover-text" aria-hidden="true">{{ include.post.title }}</span>
+      {% endif %}
+    </div>
+    <div class="blog-card-body">
+      <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y.%m.%d' }}</time>
+      <h3 class="blog-card-title">{{ include.post.title }}</h3>
+      {% if include.post.summary %}
+      <p class="blog-card-excerpt">{{ include.post.summary }}</p>
+      {% elsif include.post.excerpt %}
+      <p class="blog-card-excerpt">{{ include.post.excerpt | strip_html | truncate: 110 }}</p>
+      {% endif %}
+      {% if include.post.tags %}
+      <ul class="tag-list">
+        {% for tag in include.post.tags %}
+        <li>{{ tag }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </a>
+</article>

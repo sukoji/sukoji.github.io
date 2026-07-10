@@ -21,6 +21,20 @@ permalink: /
 
 <section class="home-section reveal">
   <div class="home-section-header">
+    <h2>최근 글</h2>
+    <a class="section-link" href="{{ '/blog/' | relative_url }}">더 보기</a>
+  </div>
+  {% if site.posts.size > 0 %}
+  <div class="blog-card-grid">
+    {% for post in site.posts limit:6 %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+<section class="home-section reveal">
+  <div class="home-section-header">
     <h2>프로젝트</h2>
     <a class="section-link" href="{{ site.author.github_repos }}" target="_blank" rel="noopener noreferrer">전체 repo</a>
   </div>
@@ -29,30 +43,6 @@ permalink: /
       {% include project-card.html project=project %}
     {% endfor %}
   </div>
-</section>
-
-<section class="home-section reveal">
-  <div class="home-section-header">
-    <h2>최근 글</h2>
-    <a class="section-link" href="{{ '/blog/' | relative_url }}">더 보기</a>
-  </div>
-  {% if site.posts.size > 0 %}
-  <ul class="post-list post-list-editorial">
-    {% for post in site.posts limit:5 %}
-    <li class="reveal-child">
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
-      <div class="post-list-body">
-        <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        {% if post.summary %}
-        <p class="excerpt">{{ post.summary }}</p>
-        {% elsif post.excerpt %}
-        <p class="excerpt">{{ post.excerpt | strip_html | truncate: 110 }}</p>
-        {% endif %}
-      </div>
-    </li>
-    {% endfor %}
-  </ul>
-  {% endif %}
 </section>
 
 <section class="home-section reveal">

@@ -1,48 +1,59 @@
 ---
 layout: post
-title: "GPT-5.6 API: Sol/Terra/Luna부터 보면 됨"
+title: "GPT-5.6 훑어보기: 티어보다 코드 툴콜이 더 큰 변화"
 date: 2026-07-10
 tags: [gpt-5.6, llm, agents]
-summary: 5.6은 세대 이름이고 Sol/Terra/Luna가 실제 모델. sympo 꽂기 전에 라우팅부터 손볼 일.
+summary: 세대는 5.6, 모델은 Sol/Terra/Luna. 벤치보다 programmatic tool calling이 파이프라인을 더 흔들 것 같습니다.
 ---
 
-7월 9일 [GPT-5.6](https://openai.com/index/gpt-5-6/)이 나왔습니다. 6월 프리뷰 때는 그냥 넘겼는데, [ChatGPT Work](https://openai.com/index/chatgpt-for-your-most-ambitious-work/)까지 같이 올라와서 이번엔 제품 쪽도 같이 봐야 할 것 같습니다.
+7월 9일 [GPT-5.6](https://openai.com/index/gpt-5-6/)이 나왔습니다. 6월 프리뷰는 그냥 넘겼는데, 이번엔 ChatGPT Work랑 Codex 업데이트가 같이 올라와서 API만 볼 게 아니게 됐습니다. 벤치 숫자보다 파이프라인에 어떻게 붙일지가 궁금해서 그쪽 위주로 봤습니다.
 
 > **적어 둠**
-> 벤치보다 **티어 셋**(Sol/Terra/Luna)이랑 **ultra** 병렬, Work 에이전트가 같이 온 게 더 큽니다. sympo 같은 파이프라인이면 라우팅·eval부터 손댈 게 많아질 것 같습니다.
+> 티어 셋(Sol/Terra/Luna)은 라우팅 정리하면 되는 일입니다. 진짜 손볼 건 툴을 코드로 부르는 programmatic tool calling 쪽이라고 봅니다.
 {: .callout-summary}
 
-## 티어
+## 티어부터 이름이 헷갈립니다
+
+버전은 5.6인데 실제 부르는 모델 이름은 Sol, Terra, Luna입니다. 숫자는 세대, 이름은 능력 티어라는 설명인데, 문서에서 `gpt-5.6`만 보고 고르면 어느 티어인지 안 나옵니다.
 
 | 모델 | 대충 이렇게 쓸 듯 | API (in / out, 1M) |
 |------|-------------------|---------------------|
-| **Sol** | 어려운 거, 마지막 합치기 | $5 / $30 |
+| **Sol** | 어려운 추론, 마지막 합치기 | $5 / $30 |
 | **Terra** | 5.5쯤, 중간 reasoning | $2.50 / $15 |
 | **Luna** | 분류·플래닝·싼 서브태스크 | $1 / $6 |
 
-버전은 5.6인데 모델 이름은 Sol/Terra/Luna입니다. 문서에서 `gpt-5.6`만 보고 고르면 헷갈립니다.
+저라면 분류랑 플래닝은 Luna, 중간 단계는 Terra, 마지막 합치는 것만 Sol로 돌릴 것 같습니다. 아직 안 해봐서 이 배치가 맞는지는 모르겠습니다. sympo의 PRD→WBS 단계에 그대로 꽂아보면 어디서 Luna가 무너지는지 바로 보일 겁니다.
 
-저라면 분류·플래닝은 Luna, 중간 reasoning은 Terra, 마지막 합치기는 Sol 정도로 나눌 것 같습니다. 아직 안 해봐서 확신은 없습니다. sympo PRD→WBS에 붙여보면 바로 알 것 같습니다.
+## 툴을 코드로 부른다
 
-## ultra
+이번에서 제일 눈에 띄는 건 programmatic tool calling입니다. 모델이 툴을 한 번에 하나씩 부르는 대신, 툴 호출을 담은 JavaScript를 써서 격리된 V8 런타임에서 돌립니다. 네트워크는 막혀 있습니다.
 
-에이전트 여러 개를 동시에 돌려서 합치는 모드입니다. 스펙에 concurrent workstream이라고 적혀 있습니다.
+멀티에이전트를 짜다 보면 "툴 부르고 → 결과 받고 → 다시 모델 → 또 툴" 왕복이 계속 쌓입니다. 이 왕복이 토큰이고 지연입니다. 루프를 모델이 쓴 코드 안으로 넣으면 왕복이 줄어들 텐데, 문제는 디버깅입니다. 지금은 오케스트레이션 로그를 보면 어느 스텝에서 틀렸는지 짚이는데, 그게 생성된 코드 안으로 들어가면 추적이 더 까다로워질 것 같습니다. 이건 진짜 붙여보기 전엔 감이 안 옵니다.
+
+## 캐싱이 예측 가능해졌습니다
+
+프롬프트 캐싱에 명시적 cache breakpoint가 생겼고, 캐시 최소 수명이 30분입니다. eval을 돌리면 긴 시스템 프롬프트랑 공통 컨텍스트를 수백 번 반복해서 넣는데, 지금까지는 캐시가 언제 살아 있는지가 애매해서 비용 예측이 잘 안 됐습니다. breakpoint를 직접 찍을 수 있으면 반복 구간 비용이 그나마 계산됩니다. token-stack 카드에 캐시 적중까지 찍히면 좋겠는데, 로그에 그 필드가 들어오는지부터 확인해야 합니다.
+
+## ultra는 돈 구멍일 수도
+
+에이전트 여러 개를 동시에 돌려 합치는 모드입니다. 스펙에는 concurrent workstream이라고 적혀 있습니다.
 
 > **주의**
-> 병렬만 늘리면 돈만 더 듭니다. 중간에 뭘 확인할지 없으면 의미 없습니다.
+> 병렬 수만 늘리면 비용만 붑니다. 중간에 뭘 검증할지 없는 파이프라인이면 ultra는 답이 아니라 지출입니다.
 {: .callout-warn}
 
-오케스트레이션이 이미 병목인 파이프라인이면, ultra가 답인지 돈 구멍인지 eval 없이는 모르겠습니다.
+오케스트레이션이 이미 병목인 경우에만 의미가 있을 텐데, 그게 맞는지는 eval 없이는 판단이 안 섭니다.
 
-## Work
+## Work는 뒤로 미룹니다
 
-Codex 계열을 문서·시트·프레젠테이션에 쓰는 제품입니다. Slack/Gmail 플러그인 늘리는 것보다 컨텍스트를 어디까지 긁어오는지가 궁금합니다. API는 Terra부터 돌려보고 Work는 뒤에 볼 예정입니다.
+Codex 계열을 문서·시트·프레젠테이션에 붙인 제품입니다. Slack이나 Gmail 플러그인이 몇 개냐보다, 컨텍스트를 어디까지 긁어오는지가 궁금합니다. API를 Terra로 먼저 만져보고 Work는 그다음에 볼 생각입니다.
 
 ## Terra로 한번 돌려보기
 
-multi-step 태스크 몇 개를 Terra로 시도해 볼 생각입니다. 호출은 대략 이렇게 됩니다.
+multi-step 태스크 몇 개를 Terra로 시도해 볼 계획입니다. 호출은 대략 이렇습니다.
 
 ```bash
+# Terra로 간단한 multi-step 요청 하나
 curl https://api.openai.com/v1/chat/completions \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -H "Content-Type: application/json" \
@@ -52,10 +63,12 @@ curl https://api.openai.com/v1/chat/completions \
   }'
 ```
 
-토큰은 [token-stack](https://github.com/sukoji/token-stack)으로 카드를 뽑아볼 계획입니다. 숫자가 나오면 여기에 추가하겠습니다.
+먼저 할 일은 하나입니다. sympo 라우팅을 Luna/Terra/Sol로 나눠 붙이고, 같은 PRD로 5.5 때랑 토큰·지연·품질을 비교하는 것. 숫자가 나오면 여기에 이어 적겠습니다.
 
-## 링크
+## 참고
 
 - [OpenAI — GPT-5.6](https://openai.com/index/gpt-5-6/)
-- [OpenAI — ChatGPT Work](https://openai.com/index/chatgpt-for-your-most-ambitious-work/)
-- [The Verge](https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work)
+- [OpenAI — Previewing GPT-5.6 Sol](https://openai.com/index/previewing-gpt-5-6-sol/)
+- [MarkTechPost — 3-tier family, programmatic tool calling](https://www.marktechpost.com/2026/07/09/openai-releases-gpt-5-6-a-three-tier-model-family-with-programmatic-tool-calling/)
+- [본인 repo — sympo](https://github.com/sukoji/sympo)
+- [본인 repo — token-stack](https://github.com/sukoji/token-stack)
