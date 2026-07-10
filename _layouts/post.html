@@ -2,7 +2,7 @@
 layout: default
 ---
 <article class="post">
-  <header class="post-header">
+  <header class="post-header reveal">
     <p class="section-label">Blog · {{ page.date | date: '%Y.%m.%d' }}</p>
     <h1>{{ page.title }}</h1>
     {% if page.tags and page.tags.size > 0 %}
@@ -13,10 +13,10 @@ layout: default
     </ul>
     {% endif %}
   </header>
-  <div class="post-content prose">
+  <div class="post-content prose reveal">
     {{ content }}
   </div>
-  <footer class="post-footer">
+  <footer class="post-footer reveal">
     <a class="back-link" href="{{ '/blog/' | relative_url }}">← 모든 글</a>
   </footer>
 </article>

@@ -7,13 +7,13 @@ subtitle: Research notes, TIL, and thoughts
 ---
 
 {% if site.posts.size == 0 %}
-<p>아직 글이 없습니다. <code>_posts/YYYY-MM-DD-제목.md</code> 형식으로 마크다운 파일을 추가하세요.</p>
+<p class="empty-note">아직 글이 없습니다. <code>_posts/YYYY-MM-DD-제목.md</code> 형식으로 마크다운 파일을 추가하세요.</p>
 {% else %}
-<ul class="post-list post-list-full">
+<ul class="post-list post-list-editorial">
   {% for post in site.posts %}
-  <li>
-    <span class="date">{{ post.date | date: '%Y.%m.%d' }}</span>
-    <div>
+  <li class="reveal-child">
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
+    <div class="post-list-body">
       <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
       {% if post.excerpt %}
       <p class="excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
@@ -26,6 +26,7 @@ subtitle: Research notes, TIL, and thoughts
       </ul>
       {% endif %}
     </div>
+    <span class="post-arrow" aria-hidden="true">→</span>
   </li>
   {% endfor %}
 </ul>
