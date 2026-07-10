@@ -162,14 +162,14 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* ── Home: wider shell, tighter sidebar so the main column breathes ── */
 .is-home-shell {
-  width: min(1320px, 100% - 2.5rem);
-  --sidebar-w: 13.5rem;
+  width: min(1280px, 100% - 2.5rem);
+  --sidebar-w: 15rem; /* equal to --rail-w so the home layout is symmetric */
   gap: clamp(1.5rem, 3vw, 2.75rem);
 }
 
 /* Unified width for pages that carry the rail (home + posts) so the header
    and the shell share the same left/right edges at every breakpoint. */
-.site-shell.has-rail { width: min(1320px, 100% - 2.5rem); }
+.site-shell.has-rail { width: min(1280px, 100% - 2.5rem); }
 
 /* ── Right rail (graph panel beside content) ──
    Mobile-first: rail stacks full width below the main column. The 3-column
@@ -210,7 +210,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 @media (min-width: 1181px) {
   .site-shell.has-rail {
-    width: min(1440px, 100% - 2.5rem);
+    width: min(1360px, 100% - 2.5rem);
     grid-template-columns: var(--sidebar-w) minmax(0, 1fr) var(--rail-w);
   }
 
@@ -454,9 +454,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Home + post pages use a wider shell; match the header edges to it so the
    brand lines up with the sidebar below (mirrors .site-shell.has-rail). */
-.header-wide { width: min(1320px, 100% - 2.5rem); }
+.header-wide { width: min(1280px, 100% - 2.5rem); }
 @media (min-width: 1181px) {
-  .header-wide { width: min(1440px, 100% - 2.5rem); }
+  .header-wide { width: min(1360px, 100% - 2.5rem); }
 }
 
 .brand {
@@ -859,7 +859,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .project-card-body {
-  padding: 1rem 1.1rem 1.1rem;
+  padding: 0.85rem 1rem 1rem;
 }
 
 .project-card-head {
@@ -996,7 +996,7 @@ img { max-width: 100%; height: auto; display: block; }
 .blog-card-body {
   display: flex;
   flex-direction: column;
-  padding: 1rem 1.1rem 1.1rem;
+  padding: 0.85rem 1rem 1rem;
 }
 
 .blog-card-body time {
@@ -1008,7 +1008,7 @@ img { max-width: 100%; height: auto; display: block; }
 .blog-card-title {
   margin: 0.4rem 0 0;
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: -0.01em;
