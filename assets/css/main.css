@@ -682,7 +682,18 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--theme);
 }
 
-.post-list-full li {
+.post-list-editorial .tag-list {
+  margin-top: 0.5rem;
+}
+
+.post-list-editorial .tag-list li {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  line-height: 1.3;
+}
+
+.post-list-full > li {
   display: grid;
   grid-template-columns: 6rem 1fr;
   gap: 1rem;
