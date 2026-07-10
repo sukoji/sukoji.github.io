@@ -1,11 +1,17 @@
-title: sukoji
-description: 이력, 논문, 블로그
+title: Seokho Jin
+description: Multi-agent systems & human-centered AI — researcher, builder, writer.
 url: "https://sukoji.github.io"
 baseurl: ""
 
 author:
-  name: sukoji
-  email: ""
+  name: Seokho Jin
+  name_ko: 진석호
+  handle: sukoji
+  email: tjrgh2192@postech.ac.kr
+  avatar: "https://avatars.githubusercontent.com/u/62287931?v=4"
+  location: Pohang, South Korea
+  tagline: Multi-agent systems & human-centered AI
+  github: "https://github.com/sukoji"
 
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title/

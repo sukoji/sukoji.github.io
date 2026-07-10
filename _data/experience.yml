@@ -1,0 +1,23 @@
+education:
+  - period: "2019 – 2025"
+    org: Sangmyung University
+    role: Human-Centered AI Engineering
+    detail: 학사 · 인간중심 AI 공학
+
+experience:
+  - period: "2026 –"
+    org: POSTECH Institute for Artificial Intelligence
+    role: Research Intern
+    detail: 멀티에이전트 시스템, 방언 음성 합성, 에이전트 평가 연구
+  - period: "2024 – 2025"
+    org: Human-Centered AI Center (HCAC)
+    role: Researcher
+    detail: 에피소딕 메모리 기반 저널링 에이전트, RAG·망각 곡선 모델링
+
+skills:
+  - category: Research
+    items: Multi-agent LLM, eval harnesses, human-centered AI, RAG, speech synthesis
+  - category: Languages
+    items: Python, TypeScript, JavaScript
+  - category: Tools
+    items: LangGraph, Claude Code, PyTorch, Django, Jekyll

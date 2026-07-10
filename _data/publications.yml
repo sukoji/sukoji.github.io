@@ -1,0 +1,16 @@
+conferences:
+  - year: 2025
+    title: "Persode: Episodic Memory-Aware Journaling Agent with Ebbinghaus Forgetting Curve and Salience-Fused RAG"
+    authors: "Seokho Jin, et al."
+    venue: "ICES 2025"
+    links:
+      - label: Code
+        url: "https://github.com/sukoji/persode"
+    abstract: "에피소딕 메모리 기반 저널링 에이전트. Ebbinghaus 망각 곡선, memory-strength scoring, salience-fused RAG, dual-template journal 생성을 구현."
+
+in_preparation:
+  - year: "—"
+    title: "추가 논문은 여기에 업데이트하세요."
+    authors: ""
+    venue: ""
+    links: []

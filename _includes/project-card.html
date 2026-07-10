@@ -1,0 +1,21 @@
+<article class="project-card">
+  <div class="project-card-top">
+    <span class="project-emoji">{{ include.project.emoji }}</span>
+    <div class="project-meta-row">
+      {% if include.project.stars %}
+      <span class="project-stars">★ {{ include.project.stars }}</span>
+      {% endif %}
+    </div>
+  </div>
+  <h3 class="project-name">
+    <a href="{{ include.project.url }}" target="_blank" rel="noopener">{{ include.project.name }}</a>
+  </h3>
+  <p class="project-desc">{{ include.project.desc }}</p>
+  {% if include.project.tags %}
+  <ul class="tag-list">
+    {% for tag in include.project.tags %}
+    <li>{{ tag }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</article>

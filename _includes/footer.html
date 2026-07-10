@@ -1,5 +1,13 @@
 <footer class="site-footer">
-  <div class="container">
-    <p>&copy; {{ 'now' | date: '%Y' }} {{ site.author.name }}</p>
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <p class="footer-name">{{ site.author.name }} <span class="footer-handle">@{{ site.author.handle }}</span></p>
+      <p class="footer-meta">{{ site.author.location }} · {{ site.author.email }}</p>
+    </div>
+    <div class="footer-right">
+      <a href="{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:{{ site.author.email }}">Email</a>
+      <span class="footer-copy">&copy; {{ 'now' | date: '%Y' }}</span>
+    </div>
   </div>
 </footer>

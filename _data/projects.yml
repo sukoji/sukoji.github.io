@@ -1,0 +1,64 @@
+featured:
+  - emoji: "🤝"
+    name: sympo
+    url: "https://github.com/sukoji/sympo"
+    desc: PRD→WBS 멀티에이전트 토론 · LangGraph · ablation · human eval
+    tags: [multi-agent, LangGraph, eval]
+    stars: 2
+  - emoji: "🔬"
+    name: awesome-self-evolving-agents
+    url: "https://github.com/sukoji/awesome-self-evolving-agents"
+    desc: 90+ papers · self-evolving agents taxonomy · misevolution safety · runnable demos
+    tags: [survey, agents, safety]
+    stars: 4
+  - emoji: "📚"
+    name: multi-agent-paper-log
+    url: "https://github.com/sukoji/multi-agent-paper-log"
+    desc: 멀티에이전트 LLM 논문 TIL — orchestration, tools, memory, eval
+    tags: [papers, notes]
+    stars: 0
+  - emoji: "🧠"
+    name: persode
+    url: "https://github.com/sukoji/persode"
+    desc: Episodic memory-aware journaling agent · ICES 2025 · Ebbinghaus forgetting curve, salience-fused RAG
+    tags: [memory, RAG, ICES]
+    stars: 0
+  - emoji: "⚡"
+    name: token-stack
+    url: "https://github.com/sukoji/token-stack"
+    desc: 로컬 에이전트 로그 → 애니메이션 SVG 토큰 카드 · README용 · no server
+    tags: [tooling, visualization]
+    stars: 0
+  - emoji: "🎯"
+    name: loadout
+    url: "https://github.com/sukoji/loadout"
+    desc: 프로젝트-aware Claude Code 셋업 · scan→match→apply MCP/hooks/skills
+    tags: [Claude Code, MCP]
+    stars: 1
+
+earlier:
+  - emoji: "🗣️"
+    name: VoxCPM-dialect
+    url: "https://github.com/sukoji/VoxCPM-dialect"
+    desc: 경상도 방언 TTS · VoxCPM fine-tuning · PIAI 방언 음성 연구
+    tags: [TTS, dialect]
+  - emoji: "🚌"
+    name: smuAIX-Basic
+    url: "https://github.com/sukoji/smuAIX-Basic"
+    desc: 서울 대중교통 EDA · SMU AI+X Basic
+    tags: [EDA, course]
+  - emoji: "📝"
+    name: InyroDjangoMentoring
+    url: "https://github.com/sukoji/InyroDjangoMentoring"
+    desc: Django 블로그 · markdown · comments · auth
+    tags: [Django, web]
+  - emoji: "💰"
+    name: wage-recommendation-ml
+    url: "https://github.com/sukoji/wage-recommendation-ml"
+    desc: 소상공인 임금 추천 ML · SMU AI+X 팀 프로젝트
+    tags: [ML, course]
+  - emoji: "🧩"
+    name: programmers-algorithm
+    url: "https://github.com/sukoji/programmers-algorithm"
+    desc: Programmers Lv.0–2 알고리즘 풀이 아카이브
+    tags: [algorithm]

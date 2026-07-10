@@ -1,39 +1,60 @@
 ---
 layout: page
 title: 이력
+label: CV
 permalink: /cv/
+subtitle: Education · Experience · Skills
 ---
 
 ## 학력
 
-| 기간 | 학교 | 전공 | 학위 |
-|------|------|------|------|
-| 20XX – 20XX | (학교명) | (전공) | (학위) |
+<div class="timeline">
+{% for item in site.data.experience.education %}
+<div class="timeline-item">
+  <p class="timeline-period">{{ item.period }}</p>
+  <p class="timeline-role">{{ item.role }}</p>
+  <p class="timeline-org">{{ item.org }}</p>
+  <p class="timeline-detail">{{ item.detail }}</p>
+</div>
+{% endfor %}
+</div>
 
 ## 경력
 
-### (회사/기관명) — (직함)
-**20XX.XX – 현재**
-
-- 담당 업무 또는 성과를 bullet로 정리
-- 프로젝트, 기술 스택 등
-
-### (이전 경력)
-**20XX.XX – 20XX.XX**
-
-- ...
+<div class="timeline">
+{% for item in site.data.experience.experience %}
+<div class="timeline-item">
+  <p class="timeline-period">{{ item.period }}</p>
+  <p class="timeline-role">{{ item.role }}</p>
+  <p class="timeline-org">{{ item.org }}</p>
+  <p class="timeline-detail">{{ item.detail }}</p>
+</div>
+{% endfor %}
+</div>
 
 ## 기술
 
-- **언어:**
-- **프레임워크/도구:**
-- **기타:**
+<div class="skills-grid">
+{% for skill in site.data.experience.skills %}
+<div class="skill-card">
+  <h3>{{ skill.category }}</h3>
+  <p>{{ skill.items }}</p>
+</div>
+{% endfor %}
+</div>
 
-## 수상 및 활동
+## 프로젝트
 
-- 20XX — (항목)
+주요 프로젝트는 [홈]({{ '/' | relative_url }})에서, 전체 목록은 [GitHub]({{ site.author.github }}?tab=repositories)에서 확인할 수 있습니다.
+
+<div class="project-grid" style="margin-top: 1.5rem;">
+{% for project in site.data.projects.featured limit:4 %}
+  {% include project-card.html project=project %}
+{% endfor %}
+</div>
 
 ## 연락처
 
-- Email: your@email.com
-- GitHub: [sukoji](https://github.com/sukoji)
+- **Email:** [{{ site.author.email }}](mailto:{{ site.author.email }})
+- **GitHub:** [@{{ site.author.handle }}]({{ site.author.github }})
+- **Location:** {{ site.author.location }}

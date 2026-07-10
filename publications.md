@@ -1,34 +1,59 @@
 ---
 layout: page
 title: 논문
+label: Publications
 permalink: /publications/
+subtitle: Conference papers & preprints
 ---
-
-논문·발표 목록을 아래 형식으로 추가하세요.
-
-## 저널 논문
-
-1. **저자명** (본인 이름 **굵게**). "논문 제목." *저널명*, vol. X, no. Y, pp. Z, 20XX.
-   - [[PDF]](#) · [[DOI]](#) · [[Code]](#)
 
 ## 학회 논문
 
-1. **저자명**. "논문 제목." *학회명 (약어)*, 20XX.
-   - [[PDF]](#) · [[Slides]](#)
+<div class="pub-list">
+{% for pub in site.data.publications.conferences %}
+<article class="pub-card">
+  <p class="pub-year">{{ pub.year }}</p>
+  <h3 class="pub-title">{{ pub.title }}</h3>
+  <p class="pub-authors">{{ pub.authors }}</p>
+  <p class="pub-venue"><em>{{ pub.venue }}</em></p>
+  {% if pub.abstract %}
+  <p class="pub-abstract">{{ pub.abstract }}</p>
+  {% endif %}
+  {% if pub.links.size > 0 %}
+  <div class="pub-links">
+    {% for link in pub.links %}
+    <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>
+{% endfor %}
+</div>
 
-## 기타
+## 준비 중
 
-- 20XX — (포스터, 기술보고서, 특허 등)
+<div class="pub-list">
+{% for pub in site.data.publications.in_preparation %}
+<article class="pub-card" style="opacity: 0.7;">
+  <p class="pub-year">{{ pub.year }}</p>
+  <h3 class="pub-title">{{ pub.title }}</h3>
+</article>
+{% endfor %}
+</div>
 
-### BibTeX 예시
+---
 
-```bibtex
-@article{example2025,
-  author  = {Your Name},
-  title   = {Paper Title},
-  journal = {Journal Name},
-  year    = {2025}
-}
+새 논문은 `_data/publications.yml`에 항목을 추가하면 자동으로 반영됩니다.
+
+```yaml
+conferences:
+  - year: 2026
+    title: "논문 제목"
+    authors: "Seokho Jin, et al."
+    venue: "학회명 2026"
+    abstract: "초록 (선택)"
+    links:
+      - label: PDF
+        url: "https://..."
+      - label: Code
+        url: "https://github.com/..."
 ```
-
-BibTeX 파일을 `assets/bib/publications.bib`에 두고 관리하는 방식으로 확장할 수도 있습니다.
