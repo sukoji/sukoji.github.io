@@ -13,11 +13,13 @@ permalink: /blog/
     <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
     <div class="post-list-body">
       <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      {% if post.excerpt %}
+      {% if post.summary %}
+      <p class="excerpt">{{ post.summary }}</p>
+      {% elsif post.excerpt %}
       <p class="excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
       {% endif %}
       {% if post.tags and post.tags.size > 0 %}
-      <ul class="tag-list" style="margin-top: 0.5rem;">
+      <ul class="tag-list">
         {% for tag in post.tags %}
         <li>{{ tag }}</li>
         {% endfor %}
