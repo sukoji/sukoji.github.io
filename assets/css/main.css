@@ -76,13 +76,19 @@ img { max-width: 100%; height: auto; }
 
 .brand {
   display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.brand-home {
+  display: flex;
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
   color: var(--ink);
 }
 
-.brand:hover { text-decoration: none; color: var(--ink); }
+.brand-home:hover { text-decoration: none; color: var(--ink); }
 
 .brand-mark {
   display: grid;
@@ -103,6 +109,16 @@ img { max-width: 100%; height: auto; }
   font-size: 1.05rem;
   font-weight: 600;
 }
+
+.brand-handle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  text-decoration: none;
+  margin-left: 3rem;
+}
+
+.brand-handle:hover { color: var(--accent); }
 
 .site-nav {
   display: flex;
@@ -122,43 +138,6 @@ img { max-width: 100%; height: auto; }
 .site-nav a[aria-current="page"] {
   color: var(--ink);
 }
-
-.brand-text-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-.brand-handle {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--ink-muted);
-  text-decoration: none;
-}
-
-.brand-handle:hover { color: var(--accent); }
-
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  background: var(--ink);
-  color: var(--bg);
-  font-family: var(--font-serif);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-.brand-text {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-}
-
-.brand:hover .brand-handle { text-decoration: none; }
 
 .nav-github {
   display: inline-flex;
