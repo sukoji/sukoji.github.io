@@ -58,9 +58,13 @@ body {
   flex-direction: column;
 }
 
+/* No forced width here: .container/.site-shell (class selectors, lower
+   specificity than this id) own the actual width/centering. An id-level
+   width:100% used to beat them and stretch main edge-to-edge, throwing
+   it out of alignment with the header's centered .container. */
 #main-content {
   flex: 1;
-  width: 100%;
+  min-width: 0;
 }
 
 .skip-link {
