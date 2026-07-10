@@ -53,6 +53,13 @@ body {
   color: var(--ink);
   background: var(--bg);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#main-content {
+  flex: 1;
+  width: 100%;
 }
 
 .skip-link {
@@ -726,8 +733,7 @@ img { max-width: 100%; height: auto; display: block; }
   max-width: var(--content);
 }
 
-.page-header h1,
-.post-header h1 {
+.page-header h1 {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 2.65rem);
   font-weight: 600;
@@ -815,21 +821,21 @@ body.is-post {
 }
 
 .post-main {
-  padding: 2rem 1.25rem 4.5rem;
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  padding: 2.5rem 1.25rem 5rem;
 }
 
 .post-shell {
-  width: min(42rem, 100%);
+  width: min(44rem, 100%);
+  margin-inline: auto;
 }
 
 .post-card {
-  background: #fff;
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: 0 8px 32px rgba(26, 31, 46, 0.06);
-  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 3vw, 2rem);
+  box-shadow: var(--shadow);
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.75rem, 4vw, 2.75rem) clamp(1.75rem, 3vw, 2.25rem);
 }
 
 .post-card .post-header {
@@ -841,7 +847,7 @@ body.is-post {
 
 .post-card .post-header h1 {
   font-family: var(--font-sans);
-  font-size: clamp(1.65rem, 4vw, 2.15rem);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -871,11 +877,7 @@ body.is-post {
   color: var(--ink-soft);
 }
 
-.post-card .post-content {
-  max-width: none;
-}
-
-.post-card .prose {
+.post-prose {
   max-width: none;
   font-family: var(--font-sans);
   font-size: 1.02rem;
@@ -883,7 +885,11 @@ body.is-post {
   color: var(--ink-soft);
 }
 
-.post-card .prose h2 {
+.post-prose > :first-child {
+  margin-top: 0;
+}
+
+.post-prose h2 {
   font-family: var(--font-sans);
   font-size: 1.2rem;
   font-weight: 700;
@@ -893,24 +899,38 @@ body.is-post {
   color: var(--ink);
 }
 
-.post-card .prose h3 {
+.post-prose h3 {
   font-size: 1.05rem;
   font-weight: 600;
   margin: 1.75rem 0 0.6rem;
   color: var(--ink);
 }
 
-.post-card .prose strong {
+.post-prose p {
+  margin: 0 0 1.15rem;
+}
+
+.post-prose ul,
+.post-prose ol {
+  margin: 0 0 1.15rem;
+  padding-left: 1.35rem;
+}
+
+.post-prose li {
+  margin-bottom: 0.4rem;
+}
+
+.post-prose strong {
   color: var(--ink);
   font-weight: 600;
 }
 
-.post-card .prose a {
+.post-prose a {
   color: var(--theme);
   font-weight: 500;
 }
 
-.post-card .prose table {
+.post-prose table {
   width: 100%;
   margin: 1.25rem 0 1.5rem;
   font-size: 0.9rem;
@@ -921,73 +941,93 @@ body.is-post {
   border-spacing: 0;
 }
 
-.post-card .prose thead th {
+.post-prose thead th {
   background: var(--deputy);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0;
-  padding: 0.65rem 0.85rem;
+  padding: 0.7rem 0.9rem;
   border-bottom: 1px solid var(--border);
 }
 
-.post-card .prose tbody td {
-  padding: 0.6rem 0.85rem;
+.post-prose tbody td {
+  padding: 0.65rem 0.9rem;
   border-bottom: 1px solid var(--border);
   vertical-align: top;
 }
 
-.post-card .prose tbody tr:last-child td {
+.post-prose tbody tr:last-child td {
   border-bottom: none;
 }
 
-.post-card .prose tbody tr:nth-child(even) td {
+.post-prose tbody tr:nth-child(even) td {
   background: #fafafa;
 }
 
-.post-card .prose code {
+.post-prose code {
+  font-family: var(--font-mono);
   font-size: 0.88em;
   background: #f3f6f8;
   color: #2d4a3c;
   border: 1px solid var(--border);
   padding: 0.15rem 0.4rem;
+  border-radius: 4px;
 }
 
-.post-card .prose pre {
+.post-prose pre,
+.post-prose .highlighter-rouge .highlight {
   margin: 1.25rem 0 1.5rem;
+}
+
+.post-prose pre,
+.post-prose .highlighter-rouge pre {
   background: #1e2433;
   color: #e8ecf4;
   border: none;
   border-radius: var(--radius-sm);
   font-size: 0.82rem;
   line-height: 1.6;
+  padding: 1.15rem 1.25rem;
+  overflow-x: auto;
 }
 
-.post-card .prose pre code {
+.post-prose pre code,
+.post-prose .highlighter-rouge pre code {
   background: none;
   border: none;
   color: inherit;
   padding: 0;
+  font-size: inherit;
 }
 
-.post-card .prose blockquote {
+.post-prose blockquote {
   margin: 1.5rem 0;
-  padding: 0.9rem 1rem;
+  padding: 1rem 1.1rem;
   border-left: 3px solid var(--theme);
   background: var(--theme-muted);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--font-sans);
   font-style: normal;
   color: var(--ink-soft);
 }
 
-.post-card .prose blockquote.callout-summary {
+.post-prose blockquote p {
+  margin: 0;
+}
+
+.post-prose blockquote p + p {
+  margin-top: 0.5rem;
+}
+
+.post-prose blockquote.callout-summary {
   border-left-color: var(--theme);
   background: #eef6f3;
 }
 
-.post-card .prose blockquote.callout-summary strong {
+.post-prose blockquote.callout-summary strong {
   display: block;
   margin-bottom: 0.35rem;
   color: var(--theme);
@@ -996,19 +1036,19 @@ body.is-post {
   letter-spacing: 0.04em;
 }
 
-.post-card .prose blockquote.callout-warn {
+.post-prose blockquote.callout-warn {
   border-left-color: #c45d3a;
   background: #fdf4ef;
 }
 
-.post-card .prose blockquote.callout-warn strong {
+.post-prose blockquote.callout-warn strong {
   display: block;
   margin-bottom: 0.35rem;
   color: #b85a3c;
   font-size: 0.82rem;
 }
 
-.post-card .prose .label {
+.post-prose .label {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -1020,18 +1060,24 @@ body.is-post {
   margin-right: 0.25rem;
 }
 
-.post-card .prose img {
+.post-prose img {
   margin: 1.5rem auto;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
 }
 
-.post-card .prose hr {
+.post-prose hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
   margin: 2rem 0;
 }
 
 .post-card .post-footer {
   max-width: none;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
 }
 
 .post-card .back-link {
@@ -1393,13 +1439,14 @@ body.is-post {
   font-size: 0.85rem;
 }
 
-/* ── Code (deputy color, Even-style) ── */
-pre, code {
+/* ── Code (deputy color, Even-style) — page content only ── */
+.page-content pre,
+.page-content code {
   font-family: var(--font-mono);
   font-size: 0.84em;
 }
 
-pre {
+.page-content pre {
   background: var(--deputy);
   color: var(--ink);
   padding: 1.15rem 1.25rem;
@@ -1409,19 +1456,19 @@ pre {
   border: 1px solid var(--border);
 }
 
-code {
+.page-content code {
   background: var(--deputy);
   padding: 0.12rem 0.38rem;
   border-radius: 4px;
   color: var(--ink);
 }
 
-pre code {
+.page-content pre code {
   background: none;
   padding: 0;
 }
 
-table {
+.page-content table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
@@ -1429,13 +1476,14 @@ table {
   font-family: var(--font-sans);
 }
 
-th, td {
+.page-content th,
+.page-content td {
   border: 1px solid var(--border);
   padding: 0.55rem 0.8rem;
   text-align: left;
 }
 
-th {
+.page-content th {
   background: var(--deputy);
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -1614,5 +1662,23 @@ th {
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .post-main {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+
+  .post-card {
+    padding: 1.5rem 1.25rem 1.25rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .post-prose table {
+    font-size: 0.82rem;
+  }
+
+  .post-prose thead th,
+  .post-prose tbody td {
+    padding: 0.55rem 0.65rem;
   }
 }
