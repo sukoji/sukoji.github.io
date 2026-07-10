@@ -5,7 +5,7 @@ permalink: /graph/
 graph: true
 ---
 
-<p class="graph-intro">글과 프로젝트를 태그로 연결한 지도입니다. 점을 끌어 옮기거나, 글·프로젝트 점을 누르면 해당 페이지로 갑니다.</p>
+<p class="graph-intro">글과 프로젝트를 태그로 연결한 지도입니다. 스크롤로 줌, 빈 곳을 끌면 이동, 점을 끌면 노드 이동. 글·프로젝트 점을 누르면 해당 페이지로 가고, 더블클릭하면 화면이 초기화됩니다.</p>
 
 <div class="graph-wrap" data-graph>
   <canvas class="graph-canvas" aria-hidden="true"></canvas>

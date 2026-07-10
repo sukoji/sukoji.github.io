@@ -9,6 +9,8 @@
   if (!raw.nodes || !raw.nodes.length) return;
 
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Colors pulled from the site palette so the graph matches the blog ── */
   var COLORS = {};
   function refreshColors() {
     var css = getComputedStyle(document.documentElement);
@@ -18,6 +20,8 @@
     COLORS.tag = v('--ink-muted', '#6b7280');
     COLORS.edge = v('--graph-edge', 'rgba(26,31,46,0.14)');
     COLORS.edgeHi = v('--theme', '#2a6b5e');
+    COLORS.halo = v('--theme-muted', 'rgba(42,107,94,0.14)');
+    COLORS.ring = v('--bg-elevated', '#fffdf9');
     COLORS.label = v('--ink', '#1a1f2e');
     COLORS.labelMuted = v('--ink-muted', '#6b7280');
   }
@@ -61,6 +65,11 @@
     n.vx = 0; n.vy = 0;
   });
 
+  /* ── View transform (zoom + pan) ──
+     screen = (W/2 + ox) + world * scale */
+  var view = { scale: 1, ox: 0, oy: 0 };
+  var userAdjusted = false;
+
   var ctx = canvas.getContext('2d');
   function resize() {
     var r = wrap.getBoundingClientRect();
@@ -71,6 +80,26 @@
     canvas.width = W * dpr; canvas.height = H * dpr;
     canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!userAdjusted) fit();
+  }
+
+  function fit() {
+    var minx = 1e9, miny = 1e9, maxx = -1e9, maxy = -1e9;
+    nodes.forEach(function (n) {
+      if (n.x < minx) minx = n.x; if (n.x > maxx) maxx = n.x;
+      if (n.y < miny) miny = n.y; if (n.y > maxy) maxy = n.y;
+    });
+    var bw = (maxx - minx) || 1, bh = (maxy - miny) || 1, pad = 70;
+    var s = Math.min((W - pad) / bw, (H - pad) / bh);
+    view.scale = Math.max(0.45, Math.min(2.2, s));
+    view.ox = -((minx + maxx) / 2) * view.scale;
+    view.oy = -((miny + maxy) / 2) * view.scale;
+  }
+
+  function toWorld(ev) {
+    var r = canvas.getBoundingClientRect();
+    var sx = ev.clientX - r.left, sy = ev.clientY - r.top;
+    return { x: (sx - W / 2 - view.ox) / view.scale, y: (sy - H / 2 - view.oy) / view.scale, sx: sx, sy: sy };
   }
 
   /* ── Force step (Euler with damping) ── */
@@ -109,97 +138,150 @@
   /* ── Draw ── */
   var hover = null;
   function draw() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    ctx.save();
-    ctx.translate(W / 2, H / 2);
+    ctx.translate(W / 2 + view.ox, H / 2 + view.oy);
+    ctx.scale(view.scale, view.scale);
 
     var hi = hover ? neighbors(hover.id) : null;
+
     links.forEach(function (l) {
       var on = hover && (l.s === hover || l.t === hover);
       ctx.strokeStyle = on ? COLORS.edgeHi : COLORS.edge;
-      ctx.lineWidth = on ? 1.6 : 1;
+      ctx.lineWidth = (on ? 1.6 : 1) / view.scale * (view.scale < 1 ? view.scale : 1);
+      ctx.globalAlpha = hover && !on ? 0.4 : 1;
       ctx.beginPath();
       ctx.moveTo(l.s.x, l.s.y);
       ctx.lineTo(l.t.x, l.t.y);
       ctx.stroke();
     });
+    ctx.globalAlpha = 1;
 
     nodes.forEach(function (n) {
-      var dim = hover && n !== hover && !(hi && hi[n.id]);
-      ctx.globalAlpha = dim ? 0.3 : 1;
+      var focus = hover && (n === hover || (hi && hi[n.id]));
+      var dim = hover && !focus;
+      var r = radius(n) * (n === hover ? 1.35 : 1);
+
+      if (focus) {
+        ctx.globalAlpha = 1;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r + 7, 0, Math.PI * 2);
+        ctx.fillStyle = COLORS.halo;
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = dim ? 0.32 : 1;
       ctx.beginPath();
-      ctx.arc(n.x, n.y, radius(n) * (n === hover ? 1.35 : 1), 0, Math.PI * 2);
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
       ctx.fillStyle = COLORS[n.type] || COLORS.tag;
       ctx.fill();
-      if (n === hover) { ctx.lineWidth = 2; ctx.strokeStyle = '#fff'; ctx.stroke(); }
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = COLORS.ring;
+      ctx.stroke();
 
-      var showLabel = n.type !== 'tag' || n === hover || (hi && hi[n.id]);
+      var showLabel = n.type !== 'tag' || focus;
       if (showLabel) {
         ctx.globalAlpha = dim ? 0.4 : 1;
         ctx.font = (n.type === 'tag' ? '10px ' : '600 11px ') + 'system-ui, sans-serif';
-        ctx.fillStyle = n.type === 'tag' ? COLORS.labelMuted : COLORS.label;
+        ctx.fillStyle = n === hover ? COLORS.edgeHi : (n.type === 'tag' ? COLORS.labelMuted : COLORS.label);
         ctx.textAlign = 'center';
-        ctx.fillText(trim(n.label), n.x, n.y - radius(n) - 5);
+        ctx.fillText(trim(n.label), n.x, n.y - r - 6);
       }
     });
     ctx.globalAlpha = 1;
-    ctx.restore();
   }
   function trim(s) { return s.length > 22 ? s.slice(0, 21) + '…' : s; }
 
   /* ── Loop ── */
-  var frames = 0, MAX = prefersReduced ? 220 : Infinity, running = true;
+  var frames = 0, MAX = prefersReduced ? 220 : Infinity, running = true, fitted = false;
   function tick() {
     if (!running) return;
-    step(); draw(); frames++;
+    step();
+    if (!fitted && !userAdjusted && frames === 90) { fit(); fitted = true; }
+    draw();
+    frames++;
     if (frames >= MAX) { running = false; }
     requestAnimationFrame(tick);
   }
+  function wake() { frames = Math.min(frames, 60); if (!running) { running = true; tick(); } }
 
-  /* ── Pointer: hover, drag, click ── */
-  var dragging = null, downAt = null, moved = false;
-  function toLocal(ev) {
-    var r = canvas.getBoundingClientRect();
-    return { x: ev.clientX - r.left - W / 2, y: ev.clientY - r.top - H / 2 };
-  }
+  /* ── Pointer: hover, node drag, background pan, click ── */
+  var dragging = null, panning = false, panLast = null, moved = false;
   function pick(p) {
     var best = null, bd = 1e9;
     nodes.forEach(function (n) {
       var dx = n.x - p.x, dy = n.y - p.y, d = dx * dx + dy * dy;
-      var rr = (radius(n) + 6) * (radius(n) + 6);
+      var rr = (radius(n) + 8) * (radius(n) + 8);
       if (d < rr && d < bd) { bd = d; best = n; }
     });
     return best;
   }
+
   canvas.addEventListener('pointermove', function (ev) {
-    var p = toLocal(ev);
+    var p = toWorld(ev);
     if (dragging) {
       dragging.x = p.x; dragging.y = p.y; dragging.vx = 0; dragging.vy = 0;
-      moved = true; running = true; frames = 0;
+      moved = true; wake();
+      return;
+    }
+    if (panning) {
+      view.ox += p.sx - panLast.sx; view.oy += p.sy - panLast.sy;
+      panLast = p; moved = true; userAdjusted = true;
+      if (!running) draw();
       return;
     }
     var n = pick(p);
-    if (n !== hover) { hover = n; canvas.style.cursor = n ? 'pointer' : 'default'; if (!running) draw(); }
+    if (n !== hover) {
+      hover = n;
+      canvas.style.cursor = n ? 'pointer' : 'grab';
+      if (!running) draw();
+    }
   });
+
   canvas.addEventListener('pointerdown', function (ev) {
-    var p = toLocal(ev);
-    dragging = pick(p); downAt = p; moved = false;
-    if (dragging) { canvas.setPointerCapture(ev.pointerId); running = true; frames = 0; }
+    var p = toWorld(ev);
+    moved = false;
+    dragging = pick(p);
+    if (dragging) { canvas.setPointerCapture(ev.pointerId); wake(); }
+    else { panning = true; panLast = p; canvas.setPointerCapture(ev.pointerId); canvas.style.cursor = 'grabbing'; }
   });
+
   canvas.addEventListener('pointerup', function (ev) {
-    var n = dragging || pick(toLocal(ev));
-    if (n && !moved && n.url) { window.location.href = n.url; }
-    dragging = null;
+    if (dragging && !moved && dragging.url) { window.location.href = dragging.url; }
+    dragging = null; panning = false;
+    canvas.style.cursor = hover ? 'pointer' : 'grab';
   });
-  canvas.addEventListener('pointerleave', function () { hover = null; if (!running) draw(); });
+
+  canvas.addEventListener('pointerleave', function () {
+    if (!panning && !dragging) { hover = null; if (!running) draw(); }
+  });
+
+  /* ── Wheel zoom toward the cursor ── */
+  canvas.addEventListener('wheel', function (ev) {
+    ev.preventDefault();
+    var p = toWorld(ev);
+    var factor = Math.exp(-ev.deltaY * 0.0015);
+    var ns = Math.max(0.4, Math.min(3.2, view.scale * factor));
+    view.scale = ns;
+    view.ox = p.sx - W / 2 - p.x * ns;
+    view.oy = p.sy - H / 2 - p.y * ns;
+    userAdjusted = true;
+    if (!running) draw();
+  }, { passive: false });
+
+  /* ── Double-click resets the view ── */
+  canvas.addEventListener('dblclick', function () {
+    userAdjusted = false; fit(); if (!running) draw();
+  });
 
   var rt;
   window.addEventListener('resize', function () {
     clearTimeout(rt);
-    rt = setTimeout(function () { resize(); running = true; frames = 0; }, 150);
+    rt = setTimeout(function () { resize(); wake(); }, 150);
   }, { passive: true });
 
   wrap.classList.add('is-live');
+  canvas.style.cursor = 'grab';
   resize();
   tick();
 })();
