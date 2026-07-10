@@ -24,8 +24,9 @@ permalink: /
     </h1>
     <p class="hero-tagline">{{ site.author.tagline }}</p>
     <p class="hero-bio">
-      멀티에이전트랑 eval 쪽 연구·개발합니다. 논문 읽다가 궁금하면 작은 코드로 확인하고,
-      안 되는 건 로그 남기는 편입니다. PIAI에서 인턴, 이전에는 HCAC에서 연구했습니다.
+      PIAI에서 멀티에이전트·eval 연구합니다. HCAC에서 Persode(ICES 2025)를 했고,
+      지금은 sympo, 방언 음성, 에이전트 도구 쪽을 오가며 일합니다.
+      궁금하면 코드로 확인하고, 남길 건 블로그에 적습니다.
     </p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">이력</a>

@@ -1285,6 +1285,20 @@ body.is-post {
   margin-bottom: 0;
 }
 
+.about-main.prose h2 {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 2rem 0 0.85rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
+}
+
+.about-main.prose h2:first-child {
+  margin-top: 0;
+}
+
 .about-sidebar {
   position: sticky;
   top: calc(var(--header-h) + 1.5rem);
