@@ -311,11 +311,18 @@ img { max-width: 100%; height: auto; display: block; }
 /* ── Hero ── */
 .hero {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 3.5rem;
+  grid-template-columns: max-content 1fr;
+  gap: 3rem;
   align-items: start;
   padding: 3.5rem 0 4.5rem;
   border-bottom: 1px solid var(--border);
+}
+
+.hero-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
 }
 
 .hero-eyebrow {
@@ -324,19 +331,29 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--theme);
-  margin: 0 0 1.25rem;
+  margin: 0 0 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.hero-avatar {
+  width: 140px;
+  flex-shrink: 0;
 }
 
 .hero-avatar a {
   display: block;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   overflow: hidden;
   transition: transform 0.5s var(--ease-out), box-shadow 0.5s;
 }
 
 .hero-avatar img {
-  width: 140px;
-  height: 140px;
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border: 3px solid var(--bg-elevated);
   box-shadow: var(--shadow), 0 0 0 1px var(--border);
@@ -351,8 +368,9 @@ img { max-width: 100%; height: auto; display: block; }
 .hero-meta-list {
   list-style: none;
   padding: 0;
-  margin: 1.5rem 0 0;
-  font-size: 0.82rem;
+  margin: 1.25rem 0 0;
+  width: 140px;
+  font-size: 0.78rem;
   color: var(--ink-muted);
 }
 
@@ -1063,15 +1081,23 @@ img { max-width: 100%; height: auto; display: block; }
 
 .sidebar-avatar-link {
   display: block;
-  margin-bottom: 1rem;
-  border-radius: var(--radius-sm);
+  width: fit-content;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
   overflow: hidden;
   transition: transform 0.4s var(--ease-out);
 }
 
 .sidebar-avatar-link:hover { transform: scale(1.02); }
 
-.about-sidebar img { border-radius: var(--radius-sm); }
+.about-sidebar img {
+  display: block;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+}
 
 .about-sidebar dt {
   font-family: var(--font-mono);
@@ -1267,11 +1293,19 @@ th {
     padding-top: 2rem;
   }
 
-  .hero-aside { order: -1; }
+  .hero-aside {
+    order: -1;
+    align-items: center;
+    width: 100%;
+  }
 
-  .hero-avatar a { margin-inline: auto; }
+  .hero-avatar { margin-inline: auto; }
 
-  .hero-meta-list { text-align: left; max-width: 16rem; margin-inline: auto; }
+  .hero-meta-list {
+    width: auto;
+    max-width: 16rem;
+    margin-inline: auto;
+  }
 
   .hero-bio { margin-inline: auto; }
 
