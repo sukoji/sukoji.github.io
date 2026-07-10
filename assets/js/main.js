@@ -68,6 +68,44 @@
     onProgress();
   }
 
+  /* ── Table of contents (post pages) ── */
+  var toc = document.querySelector('.post-toc');
+  var prose = document.querySelector('.post-prose');
+  if (toc && prose) {
+    var headings = prose.querySelectorAll('h2, h3');
+    var tocList = toc.querySelector('.post-toc-list');
+    var built = 0;
+    headings.forEach(function (h) {
+      if (!h.id) {
+        h.id = (h.textContent || '').trim().toLowerCase()
+          .replace(/[^\w가-힣\s-]/g, '').replace(/\s+/g, '-') || 'section';
+      }
+      var li = document.createElement('li');
+      li.className = 'post-toc-item lvl-' + h.tagName.toLowerCase();
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      tocList.appendChild(li);
+      built++;
+    });
+    if (built >= 2) {
+      toc.hidden = false;
+      var links = tocList.querySelectorAll('a');
+      if ('IntersectionObserver' in window) {
+        var spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            links.forEach(function (l) {
+              l.classList.toggle('is-active', l.getAttribute('href') === '#' + e.target.id);
+            });
+          });
+        }, { rootMargin: '0px 0px -75% 0px', threshold: 0 });
+        headings.forEach(function (h) { spy.observe(h); });
+      }
+    }
+  }
+
   /* ── Active nav indicator ── */
   var navLinks = document.querySelectorAll('.site-nav a[href^="/"]');
   navLinks.forEach(function (link) {
