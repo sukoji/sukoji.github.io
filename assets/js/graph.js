@@ -17,7 +17,7 @@
     function v(name, fb) { return (css.getPropertyValue(name) || fb).trim(); }
     COLORS.post = v('--theme', '#2a6b5e');
     COLORS.project = v('--accent-warm', '#b85a3c');
-    COLORS.tag = v('--theme-soft', '#3d8a7a');
+    COLORS.tag = v('--ink-muted', '#6b7280');
     COLORS.edge = v('--graph-edge', 'rgba(26,31,46,0.14)');
     COLORS.edgeHi = v('--theme', '#2a6b5e');
     COLORS.halo = v('--theme-muted', 'rgba(42,107,94,0.14)');

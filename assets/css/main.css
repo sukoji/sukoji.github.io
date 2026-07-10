@@ -1563,7 +1563,7 @@ body.is-post.has-sidebar .site-shell.is-post-shell {
 
 .dot-post { background: var(--theme); }
 .dot-project { background: var(--accent-warm); }
-.dot-tag { background: var(--theme-soft); }
+.dot-tag { background: var(--ink-muted); }
 
 .graph-fallback {
   position: absolute;
