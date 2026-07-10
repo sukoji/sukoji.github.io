@@ -33,6 +33,7 @@
 | `_data/publications.yml` | 논문 목록 |
 | `_posts/*.md` | 블로그 글 |
 | `_config.yml` | 이름, 이메일, GitHub 링크 |
+| `assets/images/profile.jpg` | 프로필 사진 (본인 사진으로 교체) |
 
 ### 논문 추가 예시 (`_data/publications.yml`)
 

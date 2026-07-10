@@ -56,7 +56,5 @@ subtitle: Education · Experience · Skills
 ## 연락처
 
 - **Email:** [{{ site.author.email }}](mailto:{{ site.author.email }})
-- **GitHub:** [@{{ site.author.handle }}]({{ site.author.github }}) · [Repositories]({{ site.author.github_repos }}) · [Profile README]({{ site.author.github_profile_readme }})
+- **GitHub:** [@{{ site.author.handle }}]({{ site.author.github }})
 - **Location:** {{ site.author.location }}
-
-{% include social-links.html source=true %}
