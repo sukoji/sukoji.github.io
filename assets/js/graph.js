@@ -9,16 +9,27 @@
   if (!raw.nodes || !raw.nodes.length) return;
 
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var css = getComputedStyle(document.documentElement);
-  var COLORS = {
-    post: (css.getPropertyValue('--theme') || '#2a6b5e').trim(),
-    project: (css.getPropertyValue('--accent-warm') || '#b85a3c').trim(),
-    tag: (css.getPropertyValue('--ink-muted') || '#6b7280').trim(),
-    edge: 'rgba(26,31,46,0.14)',
-    edgeHi: (css.getPropertyValue('--theme') || '#2a6b5e').trim(),
-    label: (css.getPropertyValue('--ink') || '#1a1f2e').trim(),
-    labelMuted: (css.getPropertyValue('--ink-muted') || '#6b7280').trim()
-  };
+  var COLORS = {};
+  function refreshColors() {
+    var css = getComputedStyle(document.documentElement);
+    function v(name, fb) { return (css.getPropertyValue(name) || fb).trim(); }
+    COLORS.post = v('--theme', '#2a6b5e');
+    COLORS.project = v('--accent-warm', '#b85a3c');
+    COLORS.tag = v('--ink-muted', '#6b7280');
+    COLORS.edge = v('--graph-edge', 'rgba(26,31,46,0.14)');
+    COLORS.edgeHi = v('--theme', '#2a6b5e');
+    COLORS.label = v('--ink', '#1a1f2e');
+    COLORS.labelMuted = v('--ink-muted', '#6b7280');
+  }
+  refreshColors();
+
+  /* recolor live when the theme toggles */
+  new MutationObserver(function () {
+    refreshColors();
+    frames = 0;
+    if (!running) { running = true; tick(); }
+    else { draw(); }
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   /* ── Dedupe nodes, index links ── */
   var nodeMap = {};

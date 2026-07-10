@@ -1,6 +1,25 @@
 (function () {
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ── Theme toggle ── */
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    var meta = document.querySelector('meta[name="theme-color"]');
+    var syncMeta = function () {
+      if (!meta) return;
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      meta.setAttribute('content', dark ? '#14171f' : '#f8f7f4');
+    };
+    syncMeta();
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var next = dark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      syncMeta();
+    });
+  }
+
   /* ── Mobile nav ── */
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('site-nav');
