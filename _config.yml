@@ -2,6 +2,7 @@ title: Seokho Jin
 description: Multi-agent systems & human-centered AI — researcher, builder, writer.
 url: "https://sukoji.github.io"
 baseurl: ""
+lang: ko
 
 author:
   name: Seokho Jin
@@ -30,3 +31,5 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - LICENSE
+  - .editorconfig

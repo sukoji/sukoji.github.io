@@ -29,31 +29,17 @@ subtitle: Conference papers & preprints
 {% endfor %}
 </div>
 
+{% if site.data.publications.in_preparation.size > 0 %}
 ## 준비 중
 
 <div class="pub-list">
 {% for pub in site.data.publications.in_preparation %}
-<article class="pub-card" style="opacity: 0.7;">
+<article class="pub-card">
   <p class="pub-year">{{ pub.year }}</p>
   <h3 class="pub-title">{{ pub.title }}</h3>
+  {% if pub.authors %}<p class="pub-authors">{{ pub.authors }}</p>{% endif %}
+  {% if pub.venue %}<p class="pub-venue"><em>{{ pub.venue }}</em></p>{% endif %}
 </article>
 {% endfor %}
 </div>
-
----
-
-새 논문은 `_data/publications.yml`에 항목을 추가하면 자동으로 반영됩니다.
-
-```yaml
-conferences:
-  - year: 2026
-    title: "논문 제목"
-    authors: "Seokho Jin, et al."
-    venue: "학회명 2026"
-    abstract: "초록 (선택)"
-    links:
-      - label: PDF
-        url: "https://..."
-      - label: Code
-        url: "https://github.com/..."
-```
+{% endif %}

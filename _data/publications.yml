@@ -6,11 +6,6 @@ conferences:
     links:
       - label: Code
         url: "https://github.com/sukoji/persode"
-    abstract: "에피소딕 메모리 기반 저널링 에이전트. Ebbinghaus 망각 곡선, memory-strength scoring, salience-fused RAG, dual-template journal 생성을 구현."
+    abstract: "에피소딕 메모리 기반 저널링 에이전트. Ebbinghaus 망각 곡선, memory-strength scoring, salience-fused RAG, dual-template journal 생성."
 
-in_preparation:
-  - year: "—"
-    title: "추가 논문은 여기에 업데이트하세요."
-    authors: ""
-    venue: ""
-    links: []
+in_preparation: []
