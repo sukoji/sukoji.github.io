@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<article class="page page-about">
+  <header class="page-header reveal">
+    <h1>{{ page.title }}</h1>
+    {% if page.lead %}
+    <p class="about-lead">{{ page.lead }}</p>
+    {% endif %}
+  </header>
+
+  <div class="about-layout reveal">
+    <div class="about-main prose">
+      {{ content }}
+    </div>
+
+    <aside class="about-sidebar">
+      <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" width="120" height="120">
+      <dl class="about-contact">
+        <div class="about-contact-row">
+          <dt>Email</dt>
+          <dd><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></dd>
+        </div>
+        <div class="about-contact-row">
+          <dt>GitHub</dt>
+          <dd><a href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">@{{ site.author.handle }}</a></dd>
+        </div>
+        <div class="about-contact-row">
+          <dt>Location</dt>
+          <dd>{{ site.author.location }}</dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</article>
