@@ -24,8 +24,8 @@ permalink: /
     </h1>
     <p class="hero-tagline">{{ site.author.tagline }}</p>
     <p class="hero-bio">
-      PIAI 연구 인턴입니다. 멀티에이전트·eval 쪽 일을 하고,
-      HCAC에서 Persode(ICES 2025)를 만든 뒤 sympo·token-stack 같은 에이전트 repo를 주로 돌립니다.
+      PIAI 인턴. 멀티에이전트·eval 보고, sympo·token-stack repo 돌리는 중.
+      Persode(ICES 2025)는 HCAC 때 했다.
     </p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">이력</a>

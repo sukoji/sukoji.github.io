@@ -1,49 +1,48 @@
 ---
 layout: post
-title: "GPT-5.6 — 모델 이름이 Sol, Terra, Luna가 됐을 때"
+title: "GPT-5.6 API — Sol/Terra/Luna부터 보면 됨"
 date: 2026-07-10
 tags: [gpt-5.6, llm, agents]
-summary: 세대 번호와 티어를 분리한 5.6 라인업. 에이전트 파이프라인에 꽂아볼 포인트만.
+summary: 5.6은 세대 이름이고 Sol/Terra/Luna가 실제 모델. sympo 꽂기 전에 라우팅부터 손볼 일.
 ---
 
-7월 9일 [GPT-5.6](https://openai.com/index/gpt-5-6/) 정식 공개. 6월 말 프리뷰 때는 "또 업데이트네" 정도로 봤는데, 이번엔 [ChatGPT Work](https://openai.com/index/chatgpt-for-your-most-ambitious-work/)까지 같이 나와서 제품 쪽 의도가 좀 더 분명해졌다.
+7월 9일 [GPT-5.6](https://openai.com/index/gpt-5-6/) 나왔다. 6월 프리뷰 때는 그냥 넘겼는데, [ChatGPT Work](https://openai.com/index/chatgpt-for-your-most-ambitious-work/)까지 같이 올라와서 이번엔 제품 쪽도 같이 봐야 할 듯.
 
-> **핵심**
-> 벤치 하나 올린 게 아니라 **티어 셋 + 병렬 에이전트 + 워크스페이스** 묶음에 가깝다. sympo 같은 멀티스텝 파이프라인 쓰는 입장에선 라우팅이랑 eval을 어떻게 짜느냐가 더 중요해질 듯.
+> **적어 둠**
+> 벤치보다 **티어 셋**(Sol/Terra/Luna)이랑 **ultra** 병렬, Work 에이전트가 같이 온 게 더 크다. sympo 같은 파이프라인이면 라우팅·eval부터 손댈 게 많아질 것 같다.
 {: .callout-summary}
 
-## 라인업
+## 티어
 
-| 모델 | 쓸 만한 곳 | API (in / out, 1M 토큰) |
-|------|-----------|-------------------------|
-| **Sol** | 어려운 추론, 최종 합성 | $5 / $30 |
-| **Terra** | 5.5급 근처, 일반 reasoning | $2.50 / $15 |
-| **Luna** | 분류·플래닝·가벼운 서브태스크 | $1 / $6 |
+| 모델 | 대충 이렇게 쓸 듯 | API (in / out, 1M) |
+|------|-------------------|---------------------|
+| **Sol** | 어려운 거, 마지막 합치기 | $5 / $30 |
+| **Terra** | 5.5쯤, 중간 reasoning | $2.50 / $15 |
+| **Luna** | 분류·플래닝·싼 서브태스크 | $1 / $6 |
 
-5.6이라는 세대 번호랑 Sol/Terra/Luna라는 티어가 따로 놀고 있다. API 고를 때 `gpt-5.6`만 보고 들어가면 헷갈릴 수 있음.
+버전은 5.6인데 모델 이름은 Sol/Terra/Luna다. 문서에서 `gpt-5.6`만 보고 고르면 헷갈린다.
 
-내 쪽에서 상상하는 조합은 대충 이런 식이다. Luna로 태스크 쪼개고 분류하고, Terra가 중간 단계 맡고, Sol은 마지막에 묶는다. 아직 실험 전이라 맞는지는 모름 — sympo PRD→WBS에 넣어보면 금방 티 날 것 같다.
+나라면 Luna로 쪼개고 분류하고, Terra가 중간, Sol이 마지막 — 정도로 나눌 것 같다. 아직 안 해봐서 확신은 없다. sympo PRD→WBS에 붙여보면 바로 알 것 같다.
 
-## Sol `ultra`
+## ultra
 
-여러 에이전트를 동시에 돌려서 합치는 모드. 스펙 시트에 **동시 workstream**이라고 적혀 있음.
+에이전트 여러 개 동시에 돌려서 합치는 모드. 스펙에 concurrent workstream이라고 적혀 있다.
 
 > **주의**
-> 병렬만 늘리면 비용만 커지는 경우가 많다. 중간에 뭘 검사할지 없으면 그냥 빠른 낭비.
+> 병렬만 늘리면 돈만 더 든다. 중간에 뭘 확인할지 없으면 의미 없다.
 {: .callout-warn}
 
-솔직히 모델 성능보다 오케스트레이션이 병목인 파이프라인에서는, ultra가 도움이 될지 돈 먹는 구멍이 될지는 eval 없이는 말하기 어렵다.
+오케스트레이션이 이미 병목인 파이프라인이면, ultra가 답인지 돈 구멍인지 eval 없이는 모르겠다.
 
-## ChatGPT Work
+## Work
 
-Codex 계열을 문서·스프레드시트·프레젠 쪽에 붙인 제품. Slack이나 Gmail 플러그인 목록이 늘어나는 것보다, **업무 컨텍스트를 어디까지 가져오느냐**가 더 관심 갈 부분이다. 개발자 입장에선 API 라우팅이 먼저고, 이쪽은 나중에 봐도 될 듯.
+Codex 계열을 문서·시트·프레젠에 쓰는 제품. Slack/Gmail 플러그인 늘리는 것보다 컨텍스트를 어디까지 긁어오는지가 궁금하다. API는 Terra부터 돌려보고 Work는 뒤에 볼 예정.
 
-## 다음에 할 것
+## Terra로 한번 돌려보기
 
-Terra로 multi-step 태스크 몇 개 돌려보고 로그 남길 예정. 호출 형태는 대략 이렇다:
+multi-step 태스크 몇 개 Terra로 시도해 볼 것. 호출은 대략:
 
 ```bash
-# Terra — 중간 reasoning용으로 먼저 시도
 curl https://api.openai.com/v1/chat/completions \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -H "Content-Type: application/json" \
@@ -53,10 +52,10 @@ curl https://api.openai.com/v1/chat/completions \
   }'
 ```
 
-토큰 쓴 양은 [token-stack](https://github.com/sukoji/token-stack)으로 README 카드 뽑아볼 생각. 숫자 나오면 여기에 덧붙이겠다.
+토큰은 [token-stack](https://github.com/sukoji/token-stack)으로 카드 뽑아볼 예정. 숫자 나오면 여기에 추가.
 
-## 읽을 곳
+## 링크
 
 - [OpenAI — GPT-5.6](https://openai.com/index/gpt-5-6/)
 - [OpenAI — ChatGPT Work](https://openai.com/index/chatgpt-for-your-most-ambitious-work/)
-- [The Verge — 출시 배경](https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work)
+- [The Verge](https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work)
