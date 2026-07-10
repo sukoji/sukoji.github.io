@@ -14,7 +14,7 @@ author:
   tagline: Multi-agent systems & human-centered AI
   bio_short: >
     멀티에이전트와 에이전트 평가를 다룹니다.
-    논문 속 주장을 직접 코드로 구현해 실제로 되는지 확인합니다.
+    논문 속 주장이 실제로 재현되는지 직접 코드로 구현해 확인합니다.
   github: "https://github.com/sukoji"
   github_repos: "https://github.com/sukoji?tab=repositories"
   github_profile_readme: "https://github.com/sukoji/sukoji"
