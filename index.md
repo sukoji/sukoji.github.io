@@ -4,31 +4,18 @@ title: 홈
 permalink: /
 ---
 
-<div class="home-shell">
-<section class="hero reveal">
-  <div class="hero-aside">
-    <div class="hero-avatar">
-      <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" width="140" height="140">
-    </div>
-    <ul class="hero-meta-list">
-      <li>PIAI · Research Intern</li>
-      <li>HCAC · Researcher</li>
-      <li>상명대 · 인간중심 AI 공학</li>
-    </ul>
-  </div>
-
-  <div class="hero-content">
-    <h1 class="hero-title">
-      <span class="hero-title-en">{{ site.author.name }}</span>
-      <span class="hero-title-ko">{{ site.author.name_ko }}</span>
-    </h1>
-    <p class="hero-tagline">{{ site.author.tagline }}</p>
-    <p class="hero-bio">{{ site.author.bio_short | strip }}</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">이력</a>
-      <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">글</a>
-      <a class="btn btn-ghost" href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">GitHub</a>
-    </div>
+<section class="home-hero reveal">
+  <p class="home-hero-eyebrow">POSTECH · PIAI</p>
+  <h1 class="home-hero-title">
+    <span class="home-hero-en">{{ site.author.name }}</span>
+    <span class="home-hero-ko">{{ site.author.name_ko }}</span>
+  </h1>
+  <p class="home-hero-tagline">{{ site.author.tagline }}</p>
+  <p class="home-hero-intro">멀티에이전트와 에이전트 평가를 연구합니다. 논문 속 주장이 실제 코드로도 되는지 확인하고, 되는 건 블로그에, 코드는 GitHub에 남깁니다.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">이력</a>
+    <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">글</a>
+    <a class="btn btn-ghost" href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer me">GitHub</a>
   </div>
 </section>
 
@@ -81,4 +68,3 @@ permalink: /
     {% endfor %}
   </ul>
 </section>
-</div>
