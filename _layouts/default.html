@@ -9,11 +9,14 @@
   <div class="reading-progress" aria-hidden="true"><span class="reading-progress-bar"></span></div>
   {% endif %}
   {% include header.html %}
-  <main id="main-content" class="site-shell container{% if page.layout == 'post' %} is-post-shell{% endif %}{% if page.url == '/' %} is-home-shell{% endif %}">
+  {% assign has_rail = false %}
+  {% if page.url == '/' or page.layout == 'post' %}{% assign has_rail = true %}{% endif %}
+  <main id="main-content" class="site-shell container{% if page.layout == 'post' %} is-post-shell{% endif %}{% if page.url == '/' %} is-home-shell{% endif %}{% if has_rail %} has-rail{% endif %}">
     {% include site-sidebar.html %}
     <div class="site-main">
       {{ content }}
     </div>
+    {% if has_rail %}{% include graph-panel.html %}{% endif %}
   </main>
   {% include footer.html %}
 </body>

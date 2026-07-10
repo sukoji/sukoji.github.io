@@ -4,7 +4,10 @@ title: "GPT-5.6 훑어보기: 모델 등급보다 tool calling이 더 큰 변화
 date: 2026-07-10
 tags: [gpt-5.6, llm, agents]
 summary: 5.6은 세대, Sol/Terra/Luna는 성능·가격이 다른 등급입니다. 등급 고르는 일보다 programmatic tool calling이 파이프라인을 더 흔들 것 같습니다.
+image: /assets/images/posts/2026-07-10-gpt-5-6.svg
 ---
+
+![GPT-5.6 — Sol, Terra, Luna](/assets/images/posts/2026-07-10-gpt-5-6.svg)
 
 7월 9일 [GPT-5.6](https://openai.com/index/gpt-5-6/)이 나왔습니다. 6월 프리뷰는 그냥 넘겼는데, 이번엔 ChatGPT Work랑 Codex 업데이트가 같이 올라와서 API만 볼 게 아니게 됐습니다. 벤치 숫자보다 파이프라인에 어떻게 붙일지가 궁금해서 그쪽 위주로 봤습니다.
 

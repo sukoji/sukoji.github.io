@@ -25,6 +25,7 @@
   --container: 1120px;
   --content: 680px;
   --sidebar-w: 16rem;
+  --rail-w: 15rem;
   --header-h: 4rem;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -164,6 +165,63 @@ img { max-width: 100%; height: auto; display: block; }
   width: min(1320px, 100% - 2.5rem);
   --sidebar-w: 13.5rem;
   gap: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+/* ── Right rail (graph panel beside content) ──
+   Mobile-first: rail stacks full width below the main column. The 3-column
+   layout only kicks in on wide screens (see the min-width rule below). */
+.site-rail {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin-top: 1.75rem;
+}
+
+.rail-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.rail-title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.rail-link {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-decoration: none;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  transition: color 0.25s;
+}
+
+.rail-link:hover { color: var(--theme); }
+
+@media (min-width: 1181px) {
+  .site-shell.has-rail {
+    width: min(1440px, 100% - 2.5rem);
+    grid-template-columns: var(--sidebar-w) minmax(0, 1fr) var(--rail-w);
+  }
+
+  .site-shell.has-rail .site-rail {
+    grid-column: auto;
+    position: sticky;
+    top: calc(var(--header-h) + 1.25rem);
+    align-self: start;
+    margin-top: 0;
+  }
+}
+
+/* On mid widths the stacked rail graph should not stretch too wide */
+@media (max-width: 1180px) {
+  .graph-rail { max-width: 34rem; margin-inline: auto; }
 }
 
 .site-sidebar {
@@ -1511,6 +1569,15 @@ body.is-post.has-sidebar .site-shell.is-post-shell {
 .graph-wrap.is-live .graph-fallback { display: none; }
 .graph-wrap.is-live .graph-legend { display: flex; }
 .graph-wrap:not(.is-live) .graph-legend { display: none; }
+
+/* Compact rail variant */
+.graph-rail { border-radius: var(--radius-sm); }
+.graph-rail .graph-legend { display: none !important; }
+.graph-rail .graph-fallback {
+  position: static;
+  padding: 0.9rem;
+  font-size: 0.75rem;
+}
 
 .graph-index {
   display: grid;

@@ -1,0 +1,16 @@
+<aside class="site-rail" aria-label="연결 그래프">
+  <div class="rail-head">
+    <p class="rail-title">연결 그래프</p>
+    <a class="rail-link" href="{{ '/graph/' | relative_url }}">전체 보기 →</a>
+  </div>
+  <div class="graph-wrap graph-rail" data-graph>
+    <canvas class="graph-canvas" aria-hidden="true"></canvas>
+    <ul class="graph-legend">
+      <li><span class="dot dot-post"></span>글</li>
+      <li><span class="dot dot-project"></span>프로젝트</li>
+      <li><span class="dot dot-tag"></span>태그</li>
+    </ul>
+    <p class="graph-fallback">그래프는 <a href="{{ '/graph/' | relative_url }}">전체 그래프</a>에서 목록으로도 볼 수 있습니다.</p>
+  </div>
+  {% include graph-data.html %}
+</aside>

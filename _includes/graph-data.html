@@ -1,0 +1,35 @@
+<script type="application/json" id="graph-data">
+{
+  "nodes": [
+    {% assign sep = "" -%}
+    {% for post in site.posts -%}
+    {{ sep }}{ "id": "post:{{ post.url }}", "label": {{ post.title | jsonify }}, "type": "post", "url": {{ post.url | relative_url | jsonify }} }
+    {%- assign sep = "," -%}
+    {%- for tag in post.tags -%}
+    {{ sep }}{ "id": "tag:{{ tag | slugify }}", "label": {{ tag | jsonify }}, "type": "tag" }
+    {%- endfor -%}
+    {%- endfor -%}
+    {%- for project in site.data.projects.featured -%}
+    {{ sep }}{ "id": "proj:{{ project.name | slugify }}", "label": {{ project.name | jsonify }}, "type": "project", "url": {{ project.url | jsonify }} }
+    {%- for tag in project.tags -%}
+    {{ sep }}{ "id": "tag:{{ tag | slugify }}", "label": {{ tag | jsonify }}, "type": "tag" }
+    {%- endfor -%}
+    {%- endfor %}
+  ],
+  "links": [
+    {% assign lsep = "" -%}
+    {% for post in site.posts -%}
+    {%- for tag in post.tags -%}
+    {{ lsep }}{ "source": "post:{{ post.url }}", "target": "tag:{{ tag | slugify }}" }
+    {%- assign lsep = "," -%}
+    {%- endfor -%}
+    {%- endfor -%}
+    {%- for project in site.data.projects.featured -%}
+    {%- for tag in project.tags -%}
+    {{ lsep }}{ "source": "proj:{{ project.name | slugify }}", "target": "tag:{{ tag | slugify }}" }
+    {%- assign lsep = "," -%}
+    {%- endfor -%}
+    {%- endfor %}
+  ]
+}
+</script>

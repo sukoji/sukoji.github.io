@@ -64,7 +64,9 @@
   var ctx = canvas.getContext('2d');
   function resize() {
     var r = wrap.getBoundingClientRect();
-    W = r.width; H = Math.max(360, Math.min(620, r.width * 0.62));
+    W = r.width;
+    var ratio = W < 380 ? 1.05 : 0.6;
+    H = Math.max(220, Math.min(600, W * ratio));
     wrap.style.setProperty('--graph-h', H + 'px');
     canvas.width = W * dpr; canvas.height = H * dpr;
     canvas.style.width = W + 'px'; canvas.style.height = H + 'px';

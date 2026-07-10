@@ -17,41 +17,7 @@ graph: true
   <p class="graph-fallback">그래프를 그리려면 JavaScript가 필요합니다. 아래 목록으로도 같은 내용을 볼 수 있습니다.</p>
 </div>
 
-<script type="application/json" id="graph-data">
-{
-  "nodes": [
-    {% assign sep = "" -%}
-    {% for post in site.posts -%}
-    {{ sep }}{ "id": "post:{{ post.url }}", "label": {{ post.title | jsonify }}, "type": "post", "url": {{ post.url | relative_url | jsonify }} }
-    {%- assign sep = "," -%}
-    {%- for tag in post.tags -%}
-    {{ sep }}{ "id": "tag:{{ tag | slugify }}", "label": {{ tag | jsonify }}, "type": "tag" }
-    {%- endfor -%}
-    {%- endfor -%}
-    {%- for project in site.data.projects.featured -%}
-    {{ sep }}{ "id": "proj:{{ project.name | slugify }}", "label": {{ project.name | jsonify }}, "type": "project", "url": {{ project.url | jsonify }} }
-    {%- for tag in project.tags -%}
-    {{ sep }}{ "id": "tag:{{ tag | slugify }}", "label": {{ tag | jsonify }}, "type": "tag" }
-    {%- endfor -%}
-    {%- endfor %}
-  ],
-  "links": [
-    {% assign lsep = "" -%}
-    {% for post in site.posts -%}
-    {%- for tag in post.tags -%}
-    {{ lsep }}{ "source": "post:{{ post.url }}", "target": "tag:{{ tag | slugify }}" }
-    {%- assign lsep = "," -%}
-    {%- endfor -%}
-    {%- endfor -%}
-    {%- for project in site.data.projects.featured -%}
-    {%- for tag in project.tags -%}
-    {{ lsep }}{ "source": "proj:{{ project.name | slugify }}", "target": "tag:{{ tag | slugify }}" }
-    {%- assign lsep = "," -%}
-    {%- endfor -%}
-    {%- endfor %}
-  ]
-}
-</script>
+{% include graph-data.html %}
 
 <div class="graph-index">
   <div class="graph-index-col">
