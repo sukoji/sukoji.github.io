@@ -167,6 +167,10 @@ img { max-width: 100%; height: auto; display: block; }
   gap: clamp(1.5rem, 3vw, 2.75rem);
 }
 
+/* Unified width for pages that carry the rail (home + posts) so the header
+   and the shell share the same left/right edges at every breakpoint. */
+.site-shell.has-rail { width: min(1320px, 100% - 2.5rem); }
+
 /* ── Right rail (graph panel beside content) ──
    Mobile-first: rail stacks full width below the main column. The 3-column
    layout only kicks in on wide screens (see the min-width rule below). */
@@ -446,6 +450,13 @@ img { max-width: 100%; height: auto; display: block; }
   justify-content: space-between;
   height: var(--header-h);
   gap: 1rem;
+}
+
+/* Home + post pages use a wider shell; match the header edges to it so the
+   brand lines up with the sidebar below (mirrors .site-shell.has-rail). */
+.header-wide { width: min(1320px, 100% - 2.5rem); }
+@media (min-width: 1181px) {
+  .header-wide { width: min(1440px, 100% - 2.5rem); }
 }
 
 .brand {

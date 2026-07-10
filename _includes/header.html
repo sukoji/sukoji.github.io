@@ -1,5 +1,5 @@
 <header class="site-header">
-  <div class="container header-inner">
+  <div class="container header-inner{% if page.url == '/' or page.layout == 'post' %} header-wide{% endif %}">
     <div class="brand">
       <a class="brand-home" href="{{ '/' | relative_url }}">
         <img
