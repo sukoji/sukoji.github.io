@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="멀티에이전트 평가의 세 축: 배치, 무대, 판정자">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d0f13"/>
+      <stop offset="1" stop-color="#161c26"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <text x="150" y="232" fill="#8b94a3" font-family="'Segoe UI', system-ui, sans-serif" font-size="40" font-weight="500" letter-spacing="9">MULTI-AGENT EVAL</text>
+  <text x="146" y="380" fill="#f2f4f8" font-family="'Segoe UI', system-ui, sans-serif" font-size="150" font-weight="700" letter-spacing="-3">3 AXES</text>
+
+  <g font-family="'Segoe UI', system-ui, sans-serif" text-anchor="middle">
+    <!-- axis 1: placement — pipeline dots with one gate highlighted -->
+    <rect x="150" y="560" width="380" height="150" rx="18" fill="none" stroke="#4db6a0" stroke-width="4"/>
+    <g>
+      <circle cx="230" cy="628" r="12" fill="#5a6675"/>
+      <circle cx="290" cy="628" r="12" fill="#5a6675"/>
+      <circle cx="350" cy="628" r="18" fill="#4db6a0"/>
+      <circle cx="410" cy="628" r="12" fill="#5a6675"/>
+      <circle cx="470" cy="628" r="12" fill="#5a6675"/>
+    </g>
+    <text x="340" y="688" fill="#8b94a3" font-size="30" font-weight="600" letter-spacing="4">PLACEMENT</text>
+
+    <!-- axis 2: stage — three nested arenas -->
+    <rect x="610" y="560" width="380" height="150" rx="18" fill="#2f5f56" stroke="#4db6a0" stroke-width="4"/>
+    <g fill="none" stroke="#0d0f13" stroke-width="4">
+      <rect x="648" y="600" width="90" height="46" rx="8"/>
+      <rect x="755" y="600" width="90" height="46" rx="8"/>
+      <rect x="862" y="600" width="90" height="46" rx="8"/>
+    </g>
+    <text x="800" y="688" fill="#8b94a3" font-size="30" font-weight="600" letter-spacing="4">STAGE</text>
+
+    <!-- axis 3: judge — small balance -->
+    <rect x="1070" y="560" width="380" height="150" rx="18" fill="none" stroke="#4db6a0" stroke-width="4"/>
+    <g stroke="#4db6a0" stroke-width="5" stroke-linecap="round">
+      <line x1="1260" y1="596" x2="1260" y2="648"/>
+      <line x1="1205" y1="606" x2="1315" y2="626"/>
+      <circle cx="1205" cy="606" r="7" fill="#4db6a0" stroke="none"/>
+      <circle cx="1315" cy="626" r="7" fill="#5a6675" stroke="none"/>
+    </g>
+    <text x="1260" y="688" fill="#8b94a3" font-size="30" font-weight="600" letter-spacing="4">JUDGE</text>
+  </g>
+</svg>
