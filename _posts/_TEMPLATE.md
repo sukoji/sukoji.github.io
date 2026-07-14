@@ -2,6 +2,7 @@
 layout: post
 title: "구체적인 제목 — 메모/정리 금지"
 date: 2026-07-10
+category: log            # deepdive(논문·기술 심층 리뷰) / news(새 모델·제품 소식) / log(내 프로젝트 작업기록)
 tags: [태그1, 태그2]
 summary: 목록에 보이는 한 줄. 핵심만, 80자 내외.
 image: /assets/images/posts/YYYY-MM-DD-slug.svg  # 선택: 미리보기 카드+히어로. 16:9 SVG 권장. 없으면 그라디언트

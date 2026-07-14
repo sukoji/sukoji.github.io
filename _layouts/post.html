@@ -4,7 +4,9 @@ layout: default
 <div class="post-shell">
   <article class="post-card">
     <header class="post-header">
+      {% assign cat = site.data.categories | where: "slug", page.category | first %}
       <p class="post-meta">
+        {% if cat %}<a class="post-cat cat-{{ cat.slug }}" href="{{ '/blog/' | relative_url }}#{{ cat.slug }}">{{ cat.label }}</a><span class="post-meta-sep">·</span>{% endif %}
         <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y.%m.%d' }}</time>
         {% if page.tags and page.tags.size > 0 %}
         <span class="post-meta-sep">·</span>

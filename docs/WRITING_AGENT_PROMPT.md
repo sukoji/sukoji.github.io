@@ -25,8 +25,10 @@ sukoji.github.io 블로그에 새 글을 쓴다. 주제: {{주제}}
    어떻게 붙일지 관점으로 연결한다. 마지막에 다음 액션 하나.
 3. humanizer 기준으로 다듬는다: 병렬 구조, 같은 종결 3연속, 빈 섹션 제목,
    em dash, rule-of-three, 마케팅 수식어 제거.
-4. front matter 채운다: layout: post, title(구체적·검색가능), date, tags(2~4개,
-   프로젝트 태그와 겹치게), summary(80자), image(아래 6번).
+4. front matter 채운다: layout: post, title(구체적·검색가능), date,
+   category(deepdive/news/log 중 하나 — 논문 심층 리뷰면 deepdive, 새 모델 소식이면
+   news, 내 프로젝트 작업기록이면 log), tags(2~4개, 프로젝트 태그와 겹치게),
+   summary(80자), image(아래 6번).
 5. callout-summary 1개 + 표 또는 복붙 가능한 bash 블록 중 최소 1개.
 6. 커버 이미지: assets/images/posts/YYYY-MM-DD-slug.svg 로 16:9(viewBox 0 0 1600 900)
    SVG 생성. 로고·상표 복제 금지 → 자체 제작 추상 마크. front matter image에 연결하고

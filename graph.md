@@ -10,7 +10,9 @@ graph: true
 <div class="graph-wrap" data-graph>
   <canvas class="graph-canvas" aria-hidden="true"></canvas>
   <ul class="graph-legend">
-    <li><span class="dot dot-post"></span>글</li>
+    <li><span class="dot dot-deepdive"></span>딥다이브</li>
+    <li><span class="dot dot-news"></span>소식</li>
+    <li><span class="dot dot-log"></span>작업로그</li>
     <li><span class="dot dot-project"></span>프로젝트</li>
     <li><span class="dot dot-tag"></span>태그</li>
   </ul>

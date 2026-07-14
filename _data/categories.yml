@@ -1,0 +1,14 @@
+# 블로그 카테고리. 순서 = /blog/ 에서 보이는 순서.
+# 글 front matter의 category: 값이 slug와 일치해야 분류된다.
+- slug: deepdive
+  label: 딥다이브
+  en: DEEP DIVE
+  desc: 논문과 기술을 수식·실험까지 따라가며 뜯어본 심층 리뷰.
+- slug: news
+  label: 소식
+  en: NEWS
+  desc: 새 모델·제품·릴리스에 대한 짧은 관점과 메모.
+- slug: log
+  label: 작업로그
+  en: LOG
+  desc: sympo·token-stack 같은 내 프로젝트의 엔지니어링 기록.

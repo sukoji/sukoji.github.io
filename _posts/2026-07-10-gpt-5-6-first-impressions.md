@@ -1,23 +1,24 @@
 ---
 layout: post
-title: "GPT-5.6 훑어보기: 모델 등급보다 tool calling이 더 큰 변화"
+title: "GPT-5.6에서 먼저 볼 것: 모델 등급보다 tool calling 경로"
 date: 2026-07-10
+category: news
 tags: [gpt-5.6, llm, agents]
-summary: 5.6은 세대, Sol/Terra/Luna는 성능·가격이 다른 등급입니다. 등급 고르는 일보다 programmatic tool calling이 파이프라인을 더 흔들 것 같습니다.
+summary: GPT-5.6은 Sol·Terra·Luna 세 등급으로 나뉩니다. sympo에서는 모델 라우팅보다 programmatic tool calling의 관측 가능성이 먼저 검증할 항목입니다.
 image: /assets/images/posts/2026-07-10-gpt-5-6.svg
 ---
 
-![GPT-5.6 — Sol, Terra, Luna](/assets/images/posts/2026-07-10-gpt-5-6.svg)
+![GPT-5.6: Sol, Terra, Luna](/assets/images/posts/2026-07-10-gpt-5-6.svg)
 
-7월 9일 [GPT-5.6](https://openai.com/index/gpt-5-6/)이 나왔습니다. 6월 프리뷰는 그냥 넘겼는데, 이번엔 ChatGPT Work랑 Codex 업데이트가 같이 올라와서 API만 볼 게 아니게 됐습니다. 벤치 숫자보다 파이프라인에 어떻게 붙일지가 궁금해서 그쪽 위주로 봤습니다.
+7월 9일 [GPT-5.6](https://openai.com/index/gpt-5-6/)이 일반 공개됐습니다. Sol, Terra, Luna라는 세 모델과 `ultra`, Programmatic Tool Calling이 같이 나왔습니다. 벤치마크 숫자보다 sympo의 PRD→WBS 파이프라인에서 호출 경로가 어떻게 달라지는지가 먼저 궁금했습니다.
 
 > **적어 둠**
-> 어떤 등급을 쓸지는 라우팅만 정리하면 되는 일입니다. 진짜 손볼 건 모델이 tool을 코드로 직접 호출하는 programmatic tool calling 쪽이라고 봅니다.
+> Sol·Terra·Luna의 라우팅은 측정으로 조정할 수 있습니다. 반면 Programmatic Tool Calling은 중간 결과와 실패 지점을 어떻게 남길지까지 바꾸므로, sympo에는 작은 실험부터 붙여야 합니다.
 {: .callout-summary}
 
 ## 모델 등급: Sol · Terra · Luna
 
-버전은 5.6인데, 실제로 API에서 부르는 모델 이름은 Sol, Terra, Luna입니다. 숫자(5.6)는 세대를 뜻하고, Sol/Terra/Luna는 **성능과 가격이 다른 등급**입니다. 스마트폰으로 치면 5.6이 출시 연식이고 Sol/Terra/Luna가 Pro·기본·Lite 라인쯤 됩니다. 문서에서 `gpt-5.6`만 보고 고르면 어느 등급인지 안 나오니 이름을 같이 봐야 합니다.
+5.6은 세대 이름이고 Sol, Terra, Luna는 성능과 가격이 다른 모델 등급입니다. 공식 발표에서는 Sol을 flagship, Terra를 일상 작업용 균형 모델, Luna를 가장 빠르고 저렴한 모델로 설명합니다. API 비용도 이 등급을 따라 달라집니다.
 
 | 모델 | 성격 | 이럴 때 | API 가격 (입력 / 출력, 100만 토큰) |
 |------|------|---------|-----------------------------------|
@@ -25,53 +26,64 @@ image: /assets/images/posts/2026-07-10-gpt-5-6.svg
 | **Terra** | 중간 (5.5쯤) | 일반적인 reasoning | $2.50 / $15 |
 | **Luna** | 제일 싸고 빠름 | 분류·플래닝·간단한 서브태스크 | $1 / $6 |
 
-출력 토큰 기준으로 Sol이 Luna의 5배입니다. 파이프라인에서 호출 수가 많은 단계에 Sol을 그냥 꽂으면 비용이 금방 붑니다. 저라면 분류랑 플래닝은 Luna, 중간 단계는 Terra, 마지막 합치는 것만 Sol로 돌릴 것 같습니다. 아직 안 해봐서 이 배치가 맞는지는 모르겠습니다. sympo의 PRD→WBS 단계에 그대로 꽂아보면 어디서 Luna가 무너지는지 바로 보일 겁니다.
+출력 토큰 가격만 보면 Sol은 Luna의 다섯 배입니다. 호출 수가 많은 단계에 Sol을 기본값으로 두기 전에, 같은 PRD 묶음에서 품질·입출력 토큰·지연 시간을 함께 재야 합니다. sympo에서는 분류와 초안 분해를 Luna 또는 Terra로, 최종 병합을 Sol로 두는 실험부터 할 생각입니다. 이 배치가 좋은지는 아직 모릅니다. 태스크 누락률과 의존성 오류가 어느 단계에서 늘어나는지 봐야 합니다.
 
 ## Programmatic tool calling
 
-이번에서 제일 눈에 띄는 건 programmatic tool calling입니다. 지금까지는 모델이 tool을 한 번에 하나씩 부르고, 그 결과를 다시 모델에 넣고, 또 부르는 식이었습니다. 5.6은 여러 tool 호출을 담은 JavaScript를 모델이 직접 써서, 격리된 V8 런타임에서 한 번에 돌립니다. 그 코드는 네트워크에 못 나갑니다.
+이번에 먼저 확인할 기능은 Programmatic Tool Calling입니다. GPT-5.6은 Responses API에서 tool을 조정하고 중간 결과를 처리하는 프로그램을 메모리 안에서 작성하고 실행할 수 있습니다. 큰 tool 결과에서 필요한 값만 남기거나, 다음 호출을 고르는 일을 모델 호출 사이가 아니라 그 프로그램 안에서 처리하는 방식입니다.
 
-멀티에이전트를 짜다 보면 "tool 호출 → 결과 받기 → 다시 모델 → 또 tool 호출" 왕복이 계속 쌓입니다. 이 왕복이 곧 토큰이고 지연입니다. 반복 루프를 모델이 쓴 코드 안으로 넣으면 왕복이 줄어들 텐데, 문제는 디버깅입니다. 지금은 오케스트레이션 로그를 보면 어느 스텝에서 틀렸는지 짚이는데, 그 로직이 생성된 코드 안으로 들어가면 추적이 더 까다로워질 것 같습니다. 이건 직접 붙여보기 전엔 감이 안 옵니다.
+멀티에이전트에서는 `tool 호출 → 결과 → 다음 모델 호출` 왕복이 금방 길어집니다. Programmatic Tool Calling이 그 왕복과 전달 토큰을 줄일 수 있다는 점은 분명합니다. 대신 sympo에서는 실패 원인을 찾기 어려워질 수 있습니다. 지금은 orchestration 로그에서 분해, 검증, 병합 중 어디가 틀렸는지 볼 수 있는데, 중간 선택이 생성 프로그램 안으로 들어가면 입력·선택·출력을 따로 남겨야 합니다. 비용 절감만 보고 바로 옮길 일은 아닙니다.
+
+| 확인할 것 | 남길 로그 | 중단 기준 |
+|------|------|------|
+| 토큰·지연 | 요청별 입력·출력 토큰, 총 시간 | 기존 경로보다 비용만 늘어날 때 |
+| 결과 품질 | WBS 누락, 의존성 순환, 사람 검토 결과 | 같은 PRD에서 오류가 늘어날 때 |
+| 관측 가능성 | tool 입력, 선택한 분기, 축약 전후 값 | 실패 원인을 한 요청 안에서 못 찾을 때 |
 
 ## Prompt caching
 
-프롬프트 캐싱에 명시적 cache breakpoint가 생겼고, 캐시 최소 수명이 30분입니다. eval을 돌리면 긴 시스템 프롬프트랑 공통 컨텍스트를 수백 번 반복해서 넣는데, 지금까지는 캐시가 언제까지 살아 있는지가 애매해서 비용 예측이 잘 안 됐습니다. breakpoint를 직접 찍을 수 있으면 반복되는 구간의 비용이 그나마 계산됩니다. token-stack 카드에 캐시 적중률까지 찍히면 좋겠는데, 로그에 그 필드가 들어오는지부터 확인해야 합니다.
+GPT-5.6부터는 `prompt_cache_options.ttl`로 cache breakpoint의 최소 수명을 지정할 수 있고, 현재 지원값은 기본값이기도 한 `30m`입니다. 반복 eval에서 시스템 프롬프트와 공통 PRD 컨텍스트를 매번 보내는 sympo에는 반가운 변화입니다. 다만 캐시가 얼마나 오래 남는지가 아니라, 요청별 cache read 토큰과 비용을 실제 응답에서 수집할 수 있는지가 먼저입니다. token-stack 카드에 적중률을 넣기 전, 로그 스키마부터 확인하겠습니다.
 
 ## ultra 병렬 모드
 
-에이전트 여러 개를 동시에 돌려 결과를 합치는 모드입니다. 스펙에는 concurrent workstream이라고 적혀 있습니다.
+`ultra`는 복잡한 작업을 위해 여러 agent workstream을 병렬로 조정하는 고성능 설정입니다. 공식 발표 기준으로 기본값은 네 agent입니다.
 
 > **주의**
 > 병렬 수만 늘리면 비용만 붑니다. 중간에 뭘 검증할지 없는 파이프라인이면 ultra는 답이 아니라 지출입니다.
 {: .callout-warn}
 
-오케스트레이션이 이미 병목인 경우에만 의미가 있을 텐데, 그게 맞는지는 eval 없이는 판단이 안 섭니다.
+sympo에 필요한지는 별개입니다. 분해 후보를 여러 개 만들고 judge로 고르는 단계가 실제 병목인지, 한 후보를 더 오래 다듬는 편이 나은지 같은 PRD 셋으로 비교해야 합니다.
 
-## ChatGPT Work
+## sympo에서 먼저 돌릴 비교
 
-Codex 계열을 문서·시트·프레젠테이션에 붙인 제품입니다. Slack이나 Gmail 플러그인이 몇 개냐보다, 컨텍스트를 어디까지 긁어오는지가 궁금합니다. API를 Terra로 먼저 만져보고 Work는 그다음에 볼 생각입니다.
+같은 PRD 20개를 기존 경로와 Terra 경로에 각각 넣고, 아래 네 값을 비교합니다. 평균만 보면 긴 입력 한두 개가 결과를 가릴 수 있으므로 중앙값과 최댓값도 같이 남깁니다.
 
-## Terra 테스트 계획
+| 항목 | 이유 |
+|------|------|
+| WBS 누락·의존성 오류 | 결과가 실제로 깨졌는지 확인 |
+| 사람 검토 통과율 | 형식 검증이 놓치는 품질 확인 |
+| 요청당 토큰과 비용 | 라우팅과 cache의 효과 확인 |
+| 종료까지 걸린 시간 | 왕복 감소가 체감 지연으로 이어지는지 확인 |
 
-multi-step 태스크 몇 개를 Terra로 시도해 볼 계획입니다. 호출은 대략 이렇습니다.
+호출은 Responses API로 시작합니다.
 
 ```bash
-# Terra로 간단한 multi-step 요청 하나
-curl https://api.openai.com/v1/chat/completions \
+# Terra에 PRD 하나를 보내는 최소 요청
+curl https://api.openai.com/v1/responses \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "gpt-5.6-terra",
-    "messages": [{"role": "user", "content": "..."}]
+    "input": "아래 PRD를 WBS로 분해하세요: ..."
   }'
 ```
 
-먼저 할 일은 하나입니다. sympo 라우팅을 Luna/Terra/Sol로 나눠 붙이고, 같은 PRD로 5.5 때랑 토큰·지연·품질을 비교하는 것. 숫자가 나오면 여기에 이어 적겠습니다.
+처음에는 Programmatic Tool Calling을 전체 파이프라인에 넣지 않습니다. 결과가 큰 tool 하나에서 필요한 필드만 고르는 좁은 경로에 붙이고, 기존 방식과 같은 PRD를 돌리겠습니다. 숫자가 쌓이면 라우팅과 로그 구조를 같이 바꾸겠습니다.
 
 ## 참고
 
-- [OpenAI — GPT-5.6](https://openai.com/index/gpt-5-6/)
-- [OpenAI — Previewing GPT-5.6 Sol](https://openai.com/index/previewing-gpt-5-6-sol/)
-- [MarkTechPost — 3-tier family, programmatic tool calling](https://www.marktechpost.com/2026/07/09/openai-releases-gpt-5-6-a-three-tier-model-family-with-programmatic-tool-calling/)
-- [본인 repo — sympo](https://github.com/sukoji/sympo)
-- [본인 repo — token-stack](https://github.com/sukoji/token-stack)
+- [OpenAI: GPT-5.6](https://openai.com/index/gpt-5-6/)
+- [OpenAI API: Programmatic Tool Calling](https://developers.openai.com/api/docs/guides/tools-programmatic-tool-calling)
+- [OpenAI API: Prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching)
+- [본인 repo: sympo](https://github.com/sukoji/sympo)
+- [본인 repo: token-stack](https://github.com/sukoji/token-stack)

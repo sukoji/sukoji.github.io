@@ -1,3 +1,4 @@
+{% assign cat = site.data.categories | where: "slug", include.post.category | first %}
 <article class="blog-card">
   <a class="blog-card-link" href="{{ include.post.url | relative_url }}">
     <div class="blog-card-cover{% unless include.post.image %} is-fallback{% endunless %}">
@@ -13,7 +14,10 @@
       {% endif %}
     </div>
     <div class="blog-card-body">
-      <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y.%m.%d' }}</time>
+      <p class="blog-card-meta">
+        {% if cat %}<span class="blog-card-cat cat-{{ cat.slug }}">{{ cat.label }}</span>{% endif %}
+        <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y.%m.%d' }}</time>
+      </p>
       <h3 class="blog-card-title">{{ include.post.title }}</h3>
       {% if include.post.summary %}
       <p class="blog-card-excerpt">{{ include.post.summary }}</p>

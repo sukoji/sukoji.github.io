@@ -18,6 +18,10 @@
     COLORS.post = v('--theme', '#2a6b5e');
     COLORS.project = v('--accent-warm', '#b85a3c');
     COLORS.tag = v('--ink-muted', '#6b7280');
+    /* per-category post colors, matching the blog badges */
+    COLORS.deepdive = v('--theme', '#2a6b5e');
+    COLORS.news = v('--accent-warm', '#b85a3c');
+    COLORS.log = '#4a6fa5';
     COLORS.edge = v('--graph-edge', 'rgba(26,31,46,0.14)');
     COLORS.edgeHi = v('--theme', '#2a6b5e');
     COLORS.halo = v('--theme-muted', 'rgba(42,107,94,0.14)');
@@ -38,7 +42,7 @@
   /* ── Dedupe nodes, index links ── */
   var nodeMap = {};
   raw.nodes.forEach(function (n) {
-    if (!nodeMap[n.id]) nodeMap[n.id] = { id: n.id, label: n.label, type: n.type, url: n.url, deg: 0 };
+    if (!nodeMap[n.id]) nodeMap[n.id] = { id: n.id, label: n.label, type: n.type, category: n.category, url: n.url, deg: 0 };
   });
   var nodes = Object.keys(nodeMap).map(function (k) { return nodeMap[k]; });
 
@@ -173,7 +177,9 @@
       ctx.globalAlpha = dim ? 0.32 : 1;
       ctx.beginPath();
       ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-      ctx.fillStyle = COLORS[n.type] || COLORS.tag;
+      var fill = COLORS[n.type] || COLORS.tag;
+      if (n.type === 'post' && n.category && COLORS[n.category]) fill = COLORS[n.category];
+      ctx.fillStyle = fill;
       ctx.fill();
       ctx.lineWidth = 1.5;
       ctx.strokeStyle = COLORS.ring;

@@ -3,7 +3,7 @@
   "nodes": [
     {% assign sep = "" -%}
     {% for post in site.posts -%}
-    {{ sep }}{ "id": "post:{{ post.url }}", "label": {{ post.title | jsonify }}, "type": "post", "url": {{ post.url | relative_url | jsonify }} }
+    {{ sep }}{ "id": "post:{{ post.url }}", "label": {{ post.title | jsonify }}, "type": "post", "category": {{ post.category | jsonify }}, "url": {{ post.url | relative_url | jsonify }} }
     {%- assign sep = "," -%}
     {%- for tag in post.tags -%}
     {{ sep }}{ "id": "tag:{{ tag | slugify }}", "label": {{ tag | jsonify }}, "type": "tag" }
